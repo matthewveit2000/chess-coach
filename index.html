@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Coach | Game Review: Onymuslb vs MattyVSixtyNine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .square-light { fill: #f0d9b5; }
+    .square-dark  { fill: #b58863; }
+    .highlight-move { fill: rgba(255, 255, 0, 0.45); }
+    .coord-text { font-size: 8px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    #chartSvg { touch-action: none; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg">
+          ♞
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Chess Coach Studio</h1>
+          <p class="text-[11px] text-slate-400">Engine-Backed Game Analysis & Coaching</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <a href="https://www.chess.com/game/live/174465280562" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors flex items-center gap-1.5">
+          <span>Chess.com</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <a href="https://github.com/matthewveit2000/chess-coach" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors flex items-center gap-1.5">
+          <span>GitHub</span>
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- Match Header Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              0–1 Win (Black won on time)
+            </span>
+            <span class="text-xs text-slate-400">2+1 Bullet · Rated</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Onymuslb <span class="text-slate-500 text-base font-normal">(476)</span> vs MattyVSixtyNine <span class="text-emerald-400 text-base font-normal">(520)</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Pirc Defense: Classical Variation (ECO B08) · 84 Plies (42 moves)
+          </p>
+        </div>
+
+        <!-- Accuracy Metrics Badges -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Avg CPL</div>
+            <div class="text-lg font-bold text-white font-mono">110</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Blunders</div>
+            <div class="text-lg font-bold text-rose-400 font-mono">4</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Mistakes</div>
+            <div class="text-lg font-bold text-amber-400 font-mono">0</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Inaccuracies</div>
+            <div class="text-lg font-bold text-yellow-400 font-mono">1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evaluation Graph Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>Evaluation Trajectory</span>
+            <span class="text-xs font-normal text-slate-400">(Scrub curve to inspect any ply)</span>
+          </h3>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800 text-xs">
+            <button id="btnWin" class="px-3 py-1 rounded-md font-semibold bg-slate-800 text-white shadow transition-colors" onclick="setMode('win')">Win Chance %</button>
+            <button id="btnCp" class="px-3 py-1 rounded-md font-medium text-slate-400 hover:text-white transition-colors" onclick="setMode('cp')">Stockfish Eval (Pawns)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graph SVG -->
+      <div class="relative w-full bg-slate-950/60 rounded-xl p-3 border border-slate-800/80">
+        <svg id="chartSvg" viewBox="0 0 800 120" class="w-full h-28 sm:h-36 overflow-visible cursor-crosshair">
+          <defs>
+            <linearGradient id="winGradientBlack" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
+            </linearGradient>
+            <linearGradient id="winGradientWhite" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.0"/>
+              <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.4"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Midline -->
+          <line id="midLine" x1="45" y1="60" x2="780" y2="60" stroke="#334155" stroke-dasharray="4,4" stroke-width="1.2" />
+          <text id="midLabel" x="40" y="64" text-anchor="end" class="text-[10px] fill-slate-400 font-mono">50%</text>
+          <text id="topLabel" x="40" y="14" text-anchor="end" class="text-[10px] fill-slate-400 font-mono">100%</text>
+          <text id="botLabel" x="40" y="112" text-anchor="end" class="text-[10px] fill-slate-400 font-mono">0%</text>
+
+          <text x="50" y="16" class="text-[10px] font-semibold fill-emerald-400 opacity-80">▲ Black Advantage (You)</text>
+          <text x="50" y="112" class="text-[10px] font-semibold fill-rose-400 opacity-80">▼ White Advantage</text>
+
+          <!-- Line and fill -->
+          <path id="areaPath" fill="url(#winGradientBlack)" d="" />
+          <path id="linePath" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+
+          <!-- Hover indicators -->
+          <line id="hoverGuide" x1="0" y1="5" x2="0" y2="115" stroke="#f8fafc" stroke-width="1.2" stroke-dasharray="2,2" class="opacity-0 pointer-events-none" />
+          <circle id="hoverPoint" r="4.5" fill="#38bdf8" stroke="#ffffff" stroke-width="2" class="opacity-0 pointer-events-none" />
+
+          <!-- Markers -->
+          <g id="markersGroup"></g>
+        </svg>
+      </div>
+
+      <div class="mt-2.5 flex items-center justify-between text-xs text-slate-400 px-1">
+        <div class="flex items-center gap-4">
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> Blunder</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Mistake</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block"></span> Inaccuracy</span>
+        </div>
+        <span>Drag or click anywhere on the curve to scrub</span>
+      </div>
+    </div>
+
+    <!-- Interactive Board & Move Inspector Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- Chessboard Column (5 cols on lg) -->
+      <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col items-center">
+        
+        <div class="relative w-full max-w-[340px] aspect-square rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
+          <svg id="boardSvg" viewBox="0 0 340 340" class="w-full h-full select-none">
+            <defs>
+              <g id="piece-P"><g id="white-pawn" class="white pawn"><path d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03-3 1.06-7.41 5.55-7.41 13.47h23c0-7.92-4.41-12.41-7.41-13.47 1.47-1.19 2.41-3 2.41-5.03 0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linecap="round" /></g></g>
+        <g id="piece-N"><g id="white-knight" class="white knight" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" style="fill:#ffffff; stroke:#000000;" /><path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,30 C 9,30 5.997,31 6,26 C 6,24 12,14 12,14 C 12,14 13.89,12.1 14,10.5 C 13.27,9.506 13.5,8.5 13.5,7.5 C 14.5,6.5 16.5,10 16.5,10 L 18.5,10 C 18.5,10 19.28,8.008 21,7 C 22,7 22,10 22,10" style="fill:#ffffff; stroke:#000000;" /><path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z" style="fill:#000000; stroke:#000000;" /><path d="M 15 15.5 A 0.5 1.5 0 1 1 14,15.5 A 0.5 1.5 0 1 1 15 15.5 z" transform="matrix(0.866,0.5,-0.5,0.866,9.693,-5.173)" style="fill:#000000; stroke:#000000;" /></g></g>
+        <g id="piece-B"><g id="white-bishop" class="white bishop" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><g fill="#fff" stroke-linecap="butt"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.354.49-2.323.47-3-.5 1.354-1.94 3-2 3-2zM15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2zM25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z" /></g><path d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5" stroke-linejoin="miter" /></g></g>
+        <g id="piece-R"><g id="white-rook" class="white rook" fill="#fff" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 39h27v-3H9v3zM12 36v-4h21v4H12zM11 14V9h4v2h5V9h5v2h5V9h4v5" stroke-linecap="butt" /><path d="M34 14l-3 3H14l-3-3" /><path d="M31 17v12.5H14V17" stroke-linecap="butt" stroke-linejoin="miter" /><path d="M31 29.5l1.5 2.5h-20l1.5-2.5" /><path d="M11 14h23" fill="none" stroke-linejoin="miter" /></g></g>
+        <g id="piece-Q"><g id="white-queen" class="white queen" fill="#fff" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0zM24.5 7.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0zM41 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0zM16 8.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0zM33 9a2 2 0 1 1-4 0 2 2 0 1 1 4 0z" /><path d="M9 26c8.5-1.5 21-1.5 27 0l2-12-7 11V11l-5.5 13.5-3-15-3 15-5.5-14V25L7 14l2 12zM9 26c0 2 1.5 2 2.5 4 1 1.5 1 1 .5 3.5-1.5 1-1.5 2.5-1.5 2.5-1.5 1.5.5 2.5.5 2.5 6.5 1 16.5 1 23 0 0 0 1.5-1 0-2.5 0 0 .5-1.5-1-2.5-.5-2.5-.5-2 .5-3.5 1-2 2.5-2 2.5-4-8.5-1.5-18.5-1.5-27 0z" stroke-linecap="butt" /><path d="M11.5 30c3.5-1 18.5-1 22 0M12 33.5c6-1 15-1 21 0" fill="none" /></g></g>
+        <g id="piece-K"><g id="white-king" class="white king" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 11.63V6M20 8h5" stroke-linejoin="miter" /><path d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5" fill="#fff" stroke-linecap="butt" stroke-linejoin="miter" /><path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10V37z" fill="#fff" /><path d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0" /></g></g>
+        <g id="piece-p"><g id="black-pawn" class="black pawn"><path d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03-3 1.06-7.41 5.55-7.41 13.47h23c0-7.92-4.41-12.41-7.41-13.47 1.47-1.19 2.41-3 2.41-5.03 0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z" fill="#000" stroke="#000" stroke-width="1.5" stroke-linecap="round" /></g></g>
+        <g id="piece-n"><g id="black-knight" class="black knight" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" style="fill:#000000; stroke:#000000;" /><path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,30 C 9,30 5.997,31 6,26 C 6,24 12,14 12,14 C 12,14 13.89,12.1 14,10.5 C 13.27,9.506 13.5,8.5 13.5,7.5 C 14.5,6.5 16.5,10 16.5,10 L 18.5,10 C 18.5,10 19.28,8.008 21,7 C 22,7 22,10 22,10" style="fill:#000000; stroke:#000000;" /><path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z" style="fill:#ececec; stroke:#ececec;" /><path d="M 15 15.5 A 0.5 1.5 0 1 1 14,15.5 A 0.5 1.5 0 1 1 15 15.5 z" transform="matrix(0.866,0.5,-0.5,0.866,9.693,-5.173)" style="fill:#ececec; stroke:#ececec;" /><path d="M 24.55,10.4 L 24.1,11.85 L 24.6,12 C 27.75,13 30.25,14.49 32.5,18.75 C 34.75,23.01 35.75,29.06 35.25,39 L 35.2,39.5 L 37.45,39.5 L 37.5,39 C 38,28.94 36.62,22.15 34.25,17.66 C 31.88,13.17 28.46,11.02 25.06,10.5 L 24.55,10.4 z " style="fill:#ececec; stroke:none;" /></g></g>
+        <g id="piece-b"><g id="black-bishop" class="black bishop" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.354.49-2.323.47-3-.5 1.354-1.94 3-2 3-2zm6-4c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2zM25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z" fill="#000" stroke-linecap="butt" /><path d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5" stroke="#fff" stroke-linejoin="miter" /></g></g>
+        <g id="piece-r"><g id="black-rook" class="black rook" fill="#000" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 39h27v-3H9v3zM12.5 32l1.5-2.5h17l1.5 2.5h-20zM12 36v-4h21v4H12z" stroke-linecap="butt" /><path d="M14 29.5v-13h17v13H14z" stroke-linecap="butt" stroke-linejoin="miter" /><path d="M14 16.5L11 14h23l-3 2.5H14zM11 14V9h4v2h5V9h5v2h5V9h4v5H11z" stroke-linecap="butt" /><path d="M12 35.5h21M13 31.5h19M14 29.5h17M14 16.5h17M11 14h23" fill="none" stroke="#fff" stroke-width="1" stroke-linejoin="miter" /></g></g>
+        <g id="piece-q"><g id="black-queen" class="black queen" fill="#000" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><g fill="#000" stroke="none"><circle cx="6" cy="12" r="2.75" /><circle cx="14" cy="9" r="2.75" /><circle cx="22.5" cy="8" r="2.75" /><circle cx="31" cy="9" r="2.75" /><circle cx="39" cy="12" r="2.75" /></g><path d="M9 26c8.5-1.5 21-1.5 27 0l2.5-12.5L31 25l-.3-14.1-5.2 13.6-3-14.5-3 14.5-5.2-13.6L14 25 6.5 13.5 9 26zM9 26c0 2 1.5 2 2.5 4 1 1.5 1 1 .5 3.5-1.5 1-1.5 2.5-1.5 2.5-1.5 1.5.5 2.5.5 2.5 6.5 1 16.5 1 23 0 0 0 1.5-1 0-2.5 0 0 .5-1.5-1-2.5-.5-2.5-.5-2 .5-3.5 1-2 2.5-2 2.5-4-8.5-1.5-18.5-1.5-27 0z" stroke-linecap="butt" /><path d="M11 38.5a35 35 1 0 0 23 0" fill="none" stroke-linecap="butt" /><path d="M11 29a35 35 1 0 1 23 0M12.5 31.5h20M11.5 34.5a35 35 1 0 0 22 0M10.5 37.5a35 35 1 0 0 24 0" fill="none" stroke="#fff" /></g></g>
+        <g id="piece-k"><g id="black-king" class="black king" fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 11.63V6" stroke-linejoin="miter" /><path d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5" fill="#000" stroke-linecap="butt" stroke-linejoin="miter" /><path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10V37z" fill="#000" /><path d="M20 8h5" stroke-linejoin="miter" /><path d="M32 29.5s8.5-4 6.03-9.65C34.15 14 25 18 22.5 24.5l.01 2.1-.01-2.1C20 18 9.906 14 6.997 19.85c-2.497 5.65 4.853 9 4.853 9M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0" stroke="#fff" /></g></g>
+            </defs>
+            <g id="boardSquares"></g>
+            <g id="boardHighlights"></g>
+            <g id="boardPieces"></g>
+            <g id="boardCoords"></g>
+          </svg>
+        </div>
+
+        <!-- Controls below board -->
+        <div class="w-full max-w-[340px] mt-3 flex items-center justify-between gap-2">
+          <button onclick="toggleFlip()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 transition-colors flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span id="flipLabel">Black POV (You)</span>
+          </button>
+
+          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+            <button onclick="jumpToPly(0)" class="w-7 h-7 flex items-center justify-center rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold" title="Start">|◀</button>
+            <button onclick="stepMove(-1)" class="w-7 h-7 flex items-center justify-center rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold" title="Prev">◀</button>
+            <button id="btnPlay" onclick="togglePlay()" class="px-2.5 h-7 flex items-center justify-center rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-bold gap-1">
+              <span id="playIcon">▶</span>
+              <span id="playLabel">Play</span>
+            </button>
+            <button onclick="stepMove(1)" class="w-7 h-7 flex items-center justify-center rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold" title="Next">▶</button>
+            <button onclick="jumpToPly(83)" class="w-7 h-7 flex items-center justify-center rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold" title="End">▶|</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Move Details & Analysis Column (7 cols on lg) -->
+      <div class="lg:col-span-7 space-y-4">
+        
+        <!-- Currently Selected Move Detail Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <div class="flex items-center gap-3">
+              <span id="badgeClass" class="px-2.5 py-1 rounded-full font-bold text-xs bg-rose-500/20 text-rose-400 border border-rose-500/30 uppercase tracking-wider">
+                BLUNDER
+              </span>
+              <div>
+                <h4 id="detailMove" class="text-xl font-bold text-white tracking-tight">16... Qxc6</h4>
+                <p id="detailPlayer" class="text-xs text-slate-400">Played by Matty (Black)</p>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <span class="text-[11px] text-slate-500 uppercase tracking-wider font-mono">Ply <span id="plyCounter">32 / 84</span></span>
+            </div>
+          </div>
+
+          <!-- Evaluations Metrics Row -->
+          <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <div class="text-[11px] text-slate-400 font-medium">Win Probability</div>
+              <div id="detailWin" class="text-xl font-bold text-rose-400 font-mono mt-0.5">2.9%</div>
+              <div id="boxWinLoss" class="text-[10px] text-rose-400 mt-0.5 font-medium">-48.0% swing</div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <div class="text-[11px] text-slate-400 font-medium">Stockfish Eval</div>
+              <div id="detailCp" class="text-xl font-bold text-white font-mono mt-0.5">-9.5</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Pawns (mover POV)</div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <div class="text-[11px] text-slate-400 font-medium">Centipawn Loss</div>
+              <div id="detailCpl" class="text-xl font-bold text-white font-mono mt-0.5">912</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">CPL</div>
+            </div>
+          </div>
+
+          <!-- Engine PV Recommendation -->
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 mb-3">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-slate-400 font-medium">Engine Preferred Move</span>
+              <span id="detailBest" class="font-bold text-emerald-400 font-mono text-sm">16... Nxd5!</span>
+            </div>
+            <div class="text-xs font-mono text-slate-300 mt-1 break-words">
+              <span class="text-slate-500">Principal variation:</span> <span id="detailPv">Nxd5 exd5 e6 Rhe1 h6 Bf4 exd5 Rxd5</span>
+            </div>
+          </div>
+
+          <!-- Tagged Motifs -->
+          <div class="text-xs flex items-center gap-2">
+            <span class="text-slate-400 font-medium shrink-0">Themes:</span>
+            <div id="motifsBadges" class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[11px]">Material grab</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[11px]">Missed forcing move</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Turning Points Quick Jump Cards -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+          <h4 class="text-sm font-bold text-white mb-3">Key Critical Turning Points</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            
+            <button onclick="jumpToPly(17)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition-colors">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-rose-400 font-mono text-sm">9... b6??</span>
+                <span class="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400">Blunder</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Missed central strike 9... c5! Lost 34% winning chances.</p>
+            </button>
+
+            <button onclick="jumpToPly(21)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition-colors">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-rose-400 font-mono text-sm">11... Rb8??</span>
+                <span class="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400">Blunder</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Passive rook retreat instead of counter-capture 11... cxd4! (lost 38%).</p>
+            </button>
+
+            <button onclick="jumpToPly(31)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-rose-500/30 text-left transition-colors">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-rose-400 font-mono text-sm">16... Qxc6??</span>
+                <span class="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400">Blunder</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Pawn grab walked into royal fork 18. Nxe7+! Win chance dropped to 2.9%.</p>
+            </button>
+
+            <button onclick="jumpToPly(49)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition-colors">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-rose-400 font-mono text-sm">25... Nc3??</span>
+                <span class="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400">Missed Mate</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Missed forced mate-in-2 (25... Bb2+ 26. Kb1 Nc3#). Still converted.</p>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Complete Move-by-Move Notation Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white">Full Game Score sheet</h3>
+          <p class="text-xs text-slate-400">Click any move to load position</p>
+        </div>
+        <span class="text-xs font-mono text-slate-500">84 Plies graded by Stockfish 19</span>
+      </div>
+
+      <div id="movesTableContainer" class="max-h-72 overflow-y-auto pr-2 rounded-xl bg-slate-950 p-3 border border-slate-800">
+        <div id="movesGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-12">
+    <p>Engine judgments generated by Stockfish 19 at depth 16 · chess-coach</p>
+  </footer>
+
+  <script>
+    const data = [{"ply": 0, "move_number": 1, "move_label": "1.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "e4", "uci": "e2e4", "from_sq": "e2", "to_sq": "e4", "best": "e4", "best_pv": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5", "cp_black": -0.24, "win_black": 47.8, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "fen_after": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"}, {"ply": 1, "move_number": 1, "move_label": "1...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "d6", "uci": "d7d6", "from_sq": "d7", "to_sq": "d6", "best": "e5", "best_pv": "e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 Re1", "cp_black": -0.46, "win_black": 45.8, "win_loss": 2.0, "cpl": 22, "classification": "good", "motifs": [], "fen_before": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1", "fen_after": "rnbqkbnr/ppp1pppp/3p4/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2"}, {"ply": 2, "move_number": 2, "move_label": "2.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "d4", "uci": "d2d4", "from_sq": "d2", "to_sq": "d4", "best": "d4", "best_pv": "d4 Nf6 Nc3 e5 Nf3 Nbd7 Bc4 Be7", "cp_black": -0.5, "win_black": 45.4, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rnbqkbnr/ppp1pppp/3p4/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", "fen_after": "rnbqkbnr/ppp1pppp/3p4/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2"}, {"ply": 3, "move_number": 2, "move_label": "2...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nf6", "uci": "g8f6", "from_sq": "g8", "to_sq": "f6", "best": "Nf6", "best_pv": "Nf6 Nc3 e5 Nf3 Nbd7 h3 Be7 g4", "cp_black": -0.48, "win_black": 45.6, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rnbqkbnr/ppp1pppp/3p4/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2", "fen_after": "rnbqkb1r/ppp1pppp/3p1n2/8/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3"}, {"ply": 4, "move_number": 3, "move_label": "3.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nc3", "uci": "b1c3", "from_sq": "b1", "to_sq": "c3", "best": "Nc3", "best_pv": "Nc3 e5 Nf3 Nbd7 Bc4 Be7 O-O O-O", "cp_black": -0.53, "win_black": 45.1, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rnbqkb1r/ppp1pppp/3p1n2/8/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3", "fen_after": "rnbqkb1r/ppp1pppp/3p1n2/8/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 2 3"}, {"ply": 5, "move_number": 3, "move_label": "3...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "g6", "uci": "g7g6", "from_sq": "g7", "to_sq": "g6", "best": "e5", "best_pv": "e5 Nf3 Nbd7 h3 c6 Be3 b5 Bd3", "cp_black": -0.71, "win_black": 43.5, "win_loss": 1.6, "cpl": 18, "classification": "best", "motifs": [], "fen_before": "rnbqkb1r/ppp1pppp/3p1n2/8/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 2 3", "fen_after": "rnbqkb1r/ppp1pp1p/3p1np1/8/3PP3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4"}, {"ply": 6, "move_number": 4, "move_label": "4.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Bg5", "uci": "c1g5", "from_sq": "c1", "to_sq": "g5", "best": "Be3", "best_pv": "Be3 c6 Nf3 Bg7 Qd2 Qa5 Bd3 O-O", "cp_black": -0.51, "win_black": 45.3, "win_loss": 1.8, "cpl": 20, "classification": "best", "motifs": [], "fen_before": "rnbqkb1r/ppp1pp1p/3p1np1/8/3PP3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4", "fen_after": "rnbqkb1r/ppp1pp1p/3p1np1/6B1/3PP3/2N5/PPP2PPP/R2QKBNR b KQkq - 1 4"}, {"ply": 7, "move_number": 4, "move_label": "4...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Bg7", "uci": "f8g7", "from_sq": "f8", "to_sq": "g7", "best": "Bg7", "best_pv": "Bg7 Qd2 h6 Bh4 O-O Rd1 a6 a4", "cp_black": -0.55, "win_black": 45.0, "win_loss": 0.4, "cpl": 4, "classification": "best", "motifs": [], "fen_before": "rnbqkb1r/ppp1pp1p/3p1np1/6B1/3PP3/2N5/PPP2PPP/R2QKBNR b KQkq - 1 4", "fen_after": "rnbqk2r/ppp1ppbp/3p1np1/6B1/3PP3/2N5/PPP2PPP/R2QKBNR w KQkq - 2 5"}, {"ply": 8, "move_number": 5, "move_label": "5.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nf3", "uci": "g1f3", "from_sq": "g1", "to_sq": "f3", "best": "Qd2", "best_pv": "Qd2 h6 Bh4 Nbd7 O-O-O g5 Bg3 Nh5", "cp_black": -0.52, "win_black": 45.2, "win_loss": 0.5, "cpl": 5, "classification": "best", "motifs": [], "fen_before": "rnbqk2r/ppp1ppbp/3p1np1/6B1/3PP3/2N5/PPP2PPP/R2QKBNR w KQkq - 2 5", "fen_after": "rnbqk2r/ppp1ppbp/3p1np1/6B1/3PP3/2N2N2/PPP2PPP/R2QKB1R b KQkq - 3 5"}, {"ply": 9, "move_number": 5, "move_label": "5...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "O-O", "uci": "e8g8", "from_sq": "e8", "to_sq": "g8", "best": "d5", "best_pv": "d5 exd5 Nxd5 Bc4 h6 Bh4 Be6 Nxd5", "cp_black": -0.53, "win_black": 45.1, "win_loss": 0.1, "cpl": 1, "classification": "best", "motifs": [], "fen_before": "rnbqk2r/ppp1ppbp/3p1np1/6B1/3PP3/2N2N2/PPP2PPP/R2QKB1R b KQkq - 3 5", "fen_after": "rnbq1rk1/ppp1ppbp/3p1np1/6B1/3PP3/2N2N2/PPP2PPP/R2QKB1R w KQ - 4 6"}, {"ply": 10, "move_number": 6, "move_label": "6.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Bc4", "uci": "f1c4", "from_sq": "f1", "to_sq": "c4", "best": "Qd2", "best_pv": "Qd2 d5 exd5 Nxd5 Bh6 Nxc3 bxc3 Bg4", "cp_black": 0.0, "win_black": 50.0, "win_loss": 4.9, "cpl": 53, "classification": "good", "motifs": [], "fen_before": "rnbq1rk1/ppp1ppbp/3p1np1/6B1/3PP3/2N2N2/PPP2PPP/R2QKB1R w KQ - 4 6", "fen_after": "rnbq1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2N2/PPP2PPP/R2QK2R b KQ - 5 6"}, {"ply": 11, "move_number": 6, "move_label": "6...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Bg4", "uci": "c8g4", "from_sq": "c8", "to_sq": "g4", "best": "Nxe4", "best_pv": "Nxe4 Nxe4 d5 Bd3 dxe4 Bxe4 c5 c3", "cp_black": -0.54, "win_black": 45.1, "win_loss": 5.0, "cpl": 54, "classification": "good", "motifs": [], "fen_before": "rnbq1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2N2/PPP2PPP/R2QK2R b KQ - 5 6", "fen_after": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP1b1/2N2N2/PPP2PPP/R2QK2R w KQ - 6 7"}, {"ply": 12, "move_number": 7, "move_label": "7.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "h3", "uci": "h2h3", "from_sq": "h2", "to_sq": "h3", "best": "h3", "best_pv": "h3 Bxf3 Qxf3 h6 Be3 Nc6 Bb3 e5", "cp_black": -0.67, "win_black": 43.9, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP1b1/2N2N2/PPP2PPP/R2QK2R w KQ - 6 7", "fen_after": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP1b1/2N2N1P/PPP2PP1/R2QK2R b KQ - 0 7"}, {"ply": 13, "move_number": 7, "move_label": "7...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Bxf3", "uci": "g4f3", "from_sq": "g4", "to_sq": "f3", "best": "Bxf3", "best_pv": "Bxf3 Qxf3 h6 Be3 Nc6 Bb3 e5 dxe5", "cp_black": -0.58, "win_black": 44.7, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP1b1/2N2N1P/PPP2PP1/R2QK2R b KQ - 0 7", "fen_after": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2b1P/PPP2PP1/R2QK2R w KQ - 0 8"}, {"ply": 14, "move_number": 8, "move_label": "8.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Qxf3", "uci": "d1f3", "from_sq": "d1", "to_sq": "f3", "best": "Qxf3", "best_pv": "Qxf3 h6 Be3 Nc6 Bb3 e5 dxe5 dxe5", "cp_black": -0.48, "win_black": 45.6, "win_loss": 0.9, "cpl": 10, "classification": "best", "motifs": [], "fen_before": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2b1P/PPP2PP1/R2QK2R w KQ - 0 8", "fen_after": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/R3K2R b KQ - 0 8"}, {"ply": 15, "move_number": 8, "move_label": "8...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nbd7", "uci": "b8d7", "from_sq": "b8", "to_sq": "d7", "best": "h6", "best_pv": "h6 Be3 Nc6 Bb3 e5 dxe5 dxe5 Qg3", "cp_black": -0.75, "win_black": 43.1, "win_loss": 2.5, "cpl": 27, "classification": "good", "motifs": [], "fen_before": "rn1q1rk1/ppp1ppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/R3K2R b KQ - 0 8", "fen_after": "r2q1rk1/pppnppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/R3K2R w KQ - 1 9"}, {"ply": 16, "move_number": 9, "move_label": "9.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "O-O-O", "uci": "e1c1", "from_sq": "e1", "to_sq": "c1", "best": "O-O-O", "best_pv": "O-O-O c5 e5 cxd4 exf6 exf6 Bf4 dxc3", "cp_black": -0.73, "win_black": 43.3, "win_loss": 0.2, "cpl": 2, "classification": "best", "motifs": [], "fen_before": "r2q1rk1/pppnppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/R3K2R w KQ - 1 9", "fen_after": "r2q1rk1/pppnppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/2KR3R b - - 2 9"}, {"ply": 17, "move_number": 9, "move_label": "9...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "b6", "uci": "b7b6", "from_sq": "b7", "to_sq": "b6", "best": "c5", "best_pv": "c5 e5 cxd4 exf6 exf6 Bf4 dxc3 Bxd6", "cp_black": -5.81, "win_black": 10.5, "win_loss": 32.8, "cpl": 508, "classification": "blunder", "motifs": ["quiet_move_missed", "opening_error"], "fen_before": "r2q1rk1/pppnppbp/3p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/2KR3R b - - 2 9", "fen_after": "r2q1rk1/p1pnppbp/1p1p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/2KR3R w - - 0 10"}, {"ply": 18, "move_number": 10, "move_label": "10.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Bb5", "uci": "c4b5", "from_sq": "c4", "to_sq": "b5", "best": "e5", "best_pv": "e5 dxe5 dxe5 Nxe5 Rxd8 Nxf3 Rxf8+ Kxf8", "cp_black": -1.87, "win_black": 33.4, "win_loss": 22.9, "cpl": 394, "classification": "mistake", "motifs": ["quiet_move_missed", "opening_error"], "fen_before": "r2q1rk1/p1pnppbp/1p1p1np1/6B1/2BPP3/2N2Q1P/PPP2PP1/2KR3R w - - 0 10", "fen_after": "r2q1rk1/p1pnppbp/1p1p1np1/1B4B1/3PP3/2N2Q1P/PPP2PP1/2KR3R b - - 1 10"}, {"ply": 19, "move_number": 10, "move_label": "10...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "c5", "uci": "c7c5", "from_sq": "c7", "to_sq": "c5", "best": "c5", "best_pv": "c5 e5 cxd4 exf6 exf6 Bf4 Ne5 Bxe5", "cp_black": -2.01, "win_black": 32.3, "win_loss": 1.1, "cpl": 14, "classification": "best", "motifs": [], "fen_before": "r2q1rk1/p1pnppbp/1p1p1np1/1B4B1/3PP3/2N2Q1P/PPP2PP1/2KR3R b - - 1 10", "fen_after": "r2q1rk1/p2nppbp/1p1p1np1/1Bp3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R w - - 0 11"}, {"ply": 20, "move_number": 11, "move_label": "11.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Bc6", "uci": "b5c6", "from_sq": "b5", "to_sq": "c6", "best": "e5", "best_pv": "e5 cxd4 exf6 exf6 Bf4 Ne5 Bxe5 dxe5", "cp_black": 2.49, "win_black": 71.4, "win_loss": 39.1, "cpl": 450, "classification": "blunder", "motifs": ["quiet_move_missed", "opening_error"], "fen_before": "r2q1rk1/p2nppbp/1p1p1np1/1Bp3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R w - - 0 11", "fen_after": "r2q1rk1/p2nppbp/1pBp1np1/2p3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R b - - 1 11"}, {"ply": 21, "move_number": 11, "move_label": "11...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rb8", "uci": "a8b8", "from_sq": "a8", "to_sq": "b8", "best": "cxd4", "best_pv": "cxd4 Bxa8 dxc3 Bxf6 Bxf6 Bd5 cxb2+ Kb1", "cp_black": -1.61, "win_black": 35.6, "win_loss": 35.8, "cpl": 410, "classification": "blunder", "motifs": ["missed_forcing_move", "opening_error"], "fen_before": "r2q1rk1/p2nppbp/1pBp1np1/2p3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R b - - 1 11", "fen_after": "1r1q1rk1/p2nppbp/1pBp1np1/2p3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R w - - 2 12"}, {"ply": 22, "move_number": 12, "move_label": "12.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "d5", "uci": "d4d5", "from_sq": "d4", "to_sq": "d5", "best": "e5", "best_pv": "e5 cxd4 exf6 exf6 Bf4 Ne5 Bxe5 dxe5", "cp_black": 1.35, "win_black": 62.2, "win_loss": 26.6, "cpl": 296, "classification": "mistake", "motifs": ["quiet_move_missed", "opening_error"], "fen_before": "1r1q1rk1/p2nppbp/1pBp1np1/2p3B1/3PP3/2N2Q1P/PPP2PP1/2KR3R w - - 2 12", "fen_after": "1r1q1rk1/p2nppbp/1pBp1np1/2pP2B1/4P3/2N2Q1P/PPP2PP1/2KR3R b - - 0 12"}, {"ply": 23, "move_number": 12, "move_label": "12...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Ne5", "uci": "d7e5", "from_sq": "d7", "to_sq": "e5", "best": "b5", "best_pv": "b5 Qe3 b4 Ne2 Ne5 f4 Nxc6 dxc6", "cp_black": 0.86, "win_black": 57.9, "win_loss": 4.3, "cpl": 49, "classification": "good", "motifs": [], "fen_before": "1r1q1rk1/p2nppbp/1pBp1np1/2pP2B1/4P3/2N2Q1P/PPP2PP1/2KR3R b - - 0 12", "fen_after": "1r1q1rk1/p3ppbp/1pBp1np1/2pPn1B1/4P3/2N2Q1P/PPP2PP1/2KR3R w - - 1 13"}, {"ply": 24, "move_number": 13, "move_label": "13.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Qe2", "uci": "f3e2", "from_sq": "f3", "to_sq": "e2", "best": "Qe2", "best_pv": "Qe2 b5 Bxb5 Qb6 f4 Ned7 e5 a6", "cp_black": 1.15, "win_black": 60.4, "win_loss": 2.6, "cpl": 29, "classification": "good", "motifs": [], "fen_before": "1r1q1rk1/p3ppbp/1pBp1np1/2pPn1B1/4P3/2N2Q1P/PPP2PP1/2KR3R w - - 1 13", "fen_after": "1r1q1rk1/p3ppbp/1pBp1np1/2pPn1B1/4P3/2N4P/PPP1QPP1/2KR3R b - - 2 13"}, {"ply": 25, "move_number": 13, "move_label": "13...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nxc6", "uci": "e5c6", "from_sq": "e5", "to_sq": "c6", "best": "b5", "best_pv": "b5 Bxb5 Qb6 f4 Ned7 e5 a6 exf6", "cp_black": -0.34, "win_black": 46.9, "win_loss": 13.6, "cpl": 149, "classification": "inaccuracy", "motifs": ["hangs_piece", "hangs_knight"], "fen_before": "1r1q1rk1/p3ppbp/1pBp1np1/2pPn1B1/4P3/2N4P/PPP1QPP1/2KR3R b - - 2 13", "fen_after": "1r1q1rk1/p3ppbp/1pnp1np1/2pP2B1/4P3/2N4P/PPP1QPP1/2KR3R w - - 0 14"}, {"ply": 26, "move_number": 14, "move_label": "14.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "dxc6", "uci": "d5c6", "from_sq": "d5", "to_sq": "c6", "best": "dxc6", "best_pv": "dxc6 Qc7 Nd5 Nxd5 exd5 e6 dxe6 Rfe8", "cp_black": -0.41, "win_black": 46.2, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "1r1q1rk1/p3ppbp/1pnp1np1/2pP2B1/4P3/2N4P/PPP1QPP1/2KR3R w - - 0 14", "fen_after": "1r1q1rk1/p3ppbp/1pPp1np1/2p3B1/4P3/2N4P/PPP1QPP1/2KR3R b - - 0 14"}, {"ply": 27, "move_number": 14, "move_label": "14...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Qc7", "uci": "d8c7", "from_sq": "d8", "to_sq": "c7", "best": "Qc7", "best_pv": "Qc7 Nd5 Nxd5 exd5 e6 dxe6 Rfe8 exf7+", "cp_black": -0.43, "win_black": 46.1, "win_loss": 0.2, "cpl": 2, "classification": "best", "motifs": [], "fen_before": "1r1q1rk1/p3ppbp/1pPp1np1/2p3B1/4P3/2N4P/PPP1QPP1/2KR3R b - - 0 14", "fen_after": "1r3rk1/p1q1ppbp/1pPp1np1/2p3B1/4P3/2N4P/PPP1QPP1/2KR3R w - - 1 15"}, {"ply": 28, "move_number": 15, "move_label": "15.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Qb5", "uci": "e2b5", "from_sq": "e2", "to_sq": "b5", "best": "Nd5", "best_pv": "Nd5 Nxd5 exd5 e6 dxe6 Rfe8 exf7+ Qxf7", "cp_black": 0.36, "win_black": 53.3, "win_loss": 7.3, "cpl": 79, "classification": "good", "motifs": [], "fen_before": "1r3rk1/p1q1ppbp/1pPp1np1/2p3B1/4P3/2N4P/PPP1QPP1/2KR3R w - - 1 15", "fen_after": "1r3rk1/p1q1ppbp/1pPp1np1/1Qp3B1/4P3/2N4P/PPP2PP1/2KR3R b - - 2 15"}, {"ply": 29, "move_number": 15, "move_label": "15...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rbc8", "uci": "b8c8", "from_sq": "b8", "to_sq": "c8", "best": "a6", "best_pv": "a6 Qxa6 Qxc6 Rhe1 Rfe8 a3 h6 Bxf6", "cp_black": 0.09, "win_black": 50.8, "win_loss": 2.5, "cpl": 27, "classification": "good", "motifs": [], "fen_before": "1r3rk1/p1q1ppbp/1pPp1np1/1Qp3B1/4P3/2N4P/PPP2PP1/2KR3R b - - 2 15", "fen_after": "2r2rk1/p1q1ppbp/1pPp1np1/1Qp3B1/4P3/2N4P/PPP2PP1/2KR3R w - - 3 16"}, {"ply": 30, "move_number": 16, "move_label": "16.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nd5", "uci": "c3d5", "from_sq": "c3", "to_sq": "d5", "best": "Nd5", "best_pv": "Nd5 Nxd5 exd5 e6 Rhe1 h6 Bf4 exd5", "cp_black": 0.1, "win_black": 50.9, "win_loss": 0.1, "cpl": 1, "classification": "best", "motifs": [], "fen_before": "2r2rk1/p1q1ppbp/1pPp1np1/1Qp3B1/4P3/2N4P/PPP2PP1/2KR3R w - - 3 16", "fen_after": "2r2rk1/p1q1ppbp/1pPp1np1/1QpN2B1/4P3/7P/PPP2PP1/2KR3R b - - 4 16"}, {"ply": 31, "move_number": 16, "move_label": "16...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Qxc6", "uci": "c7c6", "from_sq": "c7", "to_sq": "c6", "best": "Nxd5", "best_pv": "Nxd5 exd5 e6 Rhe1 h6 Bf4 exd5 Rxd5", "cp_black": -9.51, "win_black": 2.9, "win_loss": 48.0, "cpl": 961, "classification": "blunder", "motifs": ["missed_forcing_move", "material_grab"], "fen_before": "2r2rk1/p1q1ppbp/1pPp1np1/1QpN2B1/4P3/7P/PPP2PP1/2KR3R b - - 4 16", "fen_after": "2r2rk1/p3ppbp/1pqp1np1/1QpN2B1/4P3/7P/PPP2PP1/2KR3R w - - 0 17"}, {"ply": 32, "move_number": 17, "move_label": "17.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Qxc6", "uci": "b5c6", "from_sq": "b5", "to_sq": "c6", "best": "Nxe7+", "best_pv": "Nxe7+ Kh8 Nxc6 Nxe4 Be7 f5 Bxf8 Rxf8", "cp_black": -7.75, "win_black": 5.4, "win_loss": 2.5, "cpl": 176, "classification": "good", "motifs": [], "fen_before": "2r2rk1/p3ppbp/1pqp1np1/1QpN2B1/4P3/7P/PPP2PP1/2KR3R w - - 0 17", "fen_after": "2r2rk1/p3ppbp/1pQp1np1/2pN2B1/4P3/7P/PPP2PP1/2KR3R b - - 0 17"}, {"ply": 33, "move_number": 17, "move_label": "17...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxc6", "uci": "c8c6", "from_sq": "c8", "to_sq": "c6", "best": "Rxc6", "best_pv": "Rxc6 Nxe7+ Kh8 Nxc6 Nxe4 Be3 Rc8 Ne7", "cp_black": -7.7, "win_black": 5.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "2r2rk1/p3ppbp/1pQp1np1/2pN2B1/4P3/7P/PPP2PP1/2KR3R b - - 0 17", "fen_after": "5rk1/p3ppbp/1prp1np1/2pN2B1/4P3/7P/PPP2PP1/2KR3R w - - 0 18"}, {"ply": 34, "move_number": 18, "move_label": "18.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nxe7+", "uci": "d5e7", "from_sq": "d5", "to_sq": "e7", "best": "Nxe7+", "best_pv": "Nxe7+ Kh8 Nxc6 Nxe4 Be3 Rc8 Ne7 Re8", "cp_black": -7.74, "win_black": 5.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "5rk1/p3ppbp/1prp1np1/2pN2B1/4P3/7P/PPP2PP1/2KR3R w - - 0 18", "fen_after": "5rk1/p3Npbp/1prp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R b - - 0 18"}, {"ply": 35, "move_number": 18, "move_label": "18...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Kh8", "uci": "g8h8", "from_sq": "g8", "to_sq": "h8", "best": "Kh8", "best_pv": "Kh8 Nxc6 Nxe4 Be3 Rc8 Ne7 Re8 Nd5", "cp_black": -7.8, "win_black": 5.4, "win_loss": 0.1, "cpl": 6, "classification": "best", "motifs": [], "fen_before": "5rk1/p3Npbp/1prp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R b - - 0 18", "fen_after": "5r1k/p3Npbp/1prp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R w - - 1 19"}, {"ply": 36, "move_number": 19, "move_label": "19.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nxc6", "uci": "e7c6", "from_sq": "e7", "to_sq": "c6", "best": "Nxc6", "best_pv": "Nxc6 Nxe4 Be3 Rc8 Ne7 Re8 Nd5 h5", "cp_black": -7.73, "win_black": 5.5, "win_loss": 0.1, "cpl": 7, "classification": "best", "motifs": [], "fen_before": "5r1k/p3Npbp/1prp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R w - - 1 19", "fen_after": "5r1k/p4pbp/1pNp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R b - - 0 19"}, {"ply": 37, "move_number": 19, "move_label": "19...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nxe4", "uci": "f6e4", "from_sq": "f6", "to_sq": "e4", "best": "Nxe4", "best_pv": "Nxe4 Be3 Rc8 Nxa7 Ra8 Nb5 Rxa2 c3", "cp_black": -7.77, "win_black": 5.4, "win_loss": 0.1, "cpl": 4, "classification": "best", "motifs": [], "fen_before": "5r1k/p4pbp/1pNp1np1/2p3B1/4P3/7P/PPP2PP1/2KR3R b - - 0 19", "fen_after": "5r1k/p4pbp/1pNp2p1/2p3B1/4n3/7P/PPP2PP1/2KR3R w - - 0 20"}, {"ply": 38, "move_number": 20, "move_label": "20.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Be3", "uci": "g5e3", "from_sq": "g5", "to_sq": "e3", "best": "Be3", "best_pv": "Be3 Rc8 Ne7 Re8 Nd5 c4 Rhe1 c3", "cp_black": -7.74, "win_black": 5.5, "win_loss": 0.1, "cpl": 3, "classification": "best", "motifs": [], "fen_before": "5r1k/p4pbp/1pNp2p1/2p3B1/4n3/7P/PPP2PP1/2KR3R w - - 0 20", "fen_after": "5r1k/p4pbp/1pNp2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R b - - 1 20"}, {"ply": 39, "move_number": 20, "move_label": "20...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Re8", "uci": "f8e8", "from_sq": "f8", "to_sq": "e8", "best": "Rc8", "best_pv": "Rc8 Ne7 Re8 Nd5 Re5 Rhe1 h5 Kb1", "cp_black": -8.07, "win_black": 4.9, "win_loss": 0.6, "cpl": 33, "classification": "best", "motifs": [], "fen_before": "5r1k/p4pbp/1pNp2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R b - - 1 20", "fen_after": "4r2k/p4pbp/1pNp2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R w - - 2 21"}, {"ply": 40, "move_number": 21, "move_label": "21.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nxa7", "uci": "c6a7", "from_sq": "c6", "to_sq": "a7", "best": "Rhe1", "best_pv": "Rhe1 h6 f3 Rc8 Ne7 Re8 Nxg6+ fxg6", "cp_black": -7.75, "win_black": 5.4, "win_loss": 0.6, "cpl": 32, "classification": "best", "motifs": [], "fen_before": "4r2k/p4pbp/1pNp2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R w - - 2 21", "fen_after": "4r2k/N4pbp/1p1p2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R b - - 0 21"}, {"ply": 41, "move_number": 21, "move_label": "21...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Ra8", "uci": "e8a8", "from_sq": "e8", "to_sq": "a8", "best": "Ra8", "best_pv": "Ra8 Nb5 Rxa2 c3 Ra5 Nxd6 Nxd6 Rxd6", "cp_black": -7.81, "win_black": 5.3, "win_loss": 0.1, "cpl": 6, "classification": "best", "motifs": [], "fen_before": "4r2k/N4pbp/1p1p2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R b - - 0 21", "fen_after": "r6k/N4pbp/1p1p2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R w - - 1 22"}, {"ply": 42, "move_number": 22, "move_label": "22.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Nb5", "uci": "a7b5", "from_sq": "a7", "to_sq": "b5", "best": "Nb5", "best_pv": "Nb5 Rxa2 c3 Kg8 Kb1 Ra4 f3 Ng3", "cp_black": -7.79, "win_black": 5.4, "win_loss": 0.0, "cpl": 2, "classification": "best", "motifs": [], "fen_before": "r6k/N4pbp/1p1p2p1/2p5/4n3/4B2P/PPP2PP1/2KR3R w - - 1 22", "fen_after": "r6k/5pbp/1p1p2p1/1Np5/4n3/4B2P/PPP2PP1/2KR3R b - - 2 22"}, {"ply": 43, "move_number": 22, "move_label": "22...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxa2", "uci": "a8a2", "from_sq": "a8", "to_sq": "a2", "best": "Rxa2", "best_pv": "Rxa2 c3 Bf8 Kc2 Ra5 Nc7 Ra7 Nd5", "cp_black": -7.72, "win_black": 5.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "r6k/5pbp/1p1p2p1/1Np5/4n3/4B2P/PPP2PP1/2KR3R b - - 2 22", "fen_after": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/rPP2PP1/2KR3R w - - 0 23"}, {"ply": 44, "move_number": 23, "move_label": "23.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kb1", "uci": "c1b1", "from_sq": "c1", "to_sq": "b1", "best": "c3", "best_pv": "c3 Bf8 Kc2 Ra5 Nc7 Ra7 Nd5 b5", "cp_black": 1.69, "win_black": 65.1, "win_loss": 59.6, "cpl": 941, "classification": "blunder", "motifs": ["quiet_move_missed"], "fen_before": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/rPP2PP1/2KR3R w - - 0 23", "fen_after": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/rPP2PP1/1K1R3R b - - 1 23"}, {"ply": 45, "move_number": 23, "move_label": "23...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxb2+", "uci": "a2b2", "from_sq": "a2", "to_sq": "b2", "best": "Rxb2+", "best_pv": "Rxb2+ Kc1 Rxb5 c3 Rb3 Bd2 Nxc3 Rhe1", "cp_black": 2.36, "win_black": 70.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/rPP2PP1/1K1R3R b - - 1 23", "fen_after": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/1rP2PP1/1K1R3R w - - 0 24"}, {"ply": 46, "move_number": 24, "move_label": "24.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kc1", "uci": "b1c1", "from_sq": "b1", "to_sq": "c1", "best": "Kc1", "best_pv": "Kc1 Rxb5 c3 Rb3 Bd2 Nxc3 Kc2 Nxd1", "cp_black": 2.74, "win_black": 73.3, "win_loss": 2.8, "cpl": 38, "classification": "good", "motifs": [], "fen_before": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/1rP2PP1/1K1R3R w - - 0 24", "fen_after": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/1rP2PP1/2KR3R b - - 1 24"}, {"ply": 47, "move_number": 24, "move_label": "24...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxb5", "uci": "b2b5", "from_sq": "b2", "to_sq": "b5", "best": "Rxb5", "best_pv": "Rxb5 c3 Rb3 Bd2 Nxc3 Kc2 Nxd1 Kxb3", "cp_black": 3.19, "win_black": 76.4, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1p2p1/1Np5/4n3/4B2P/1rP2PP1/2KR3R b - - 1 24", "fen_after": "7k/5pbp/1p1p2p1/1rp5/4n3/4B2P/2P2PP1/2KR3R w - - 0 25"}, {"ply": 48, "move_number": 25, "move_label": "25.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "f3", "uci": "f2f3", "from_sq": "f2", "to_sq": "f3", "best": "c3", "best_pv": "c3 Rb3 Bd2 Nxc3 Kc2 Nxd1 Kxb3 Nxf2", "cp_black": 10.0, "win_black": 100.0, "win_loss": 23.6, "cpl": 1000, "classification": "mistake", "motifs": ["allowed_mate", "back_rank", "quiet_move_missed", "king_safety"], "fen_before": "7k/5pbp/1p1p2p1/1rp5/4n3/4B2P/2P2PP1/2KR3R w - - 0 25", "fen_after": "7k/5pbp/1p1p2p1/1rp5/4n3/4BP1P/2P3P1/2KR3R b - - 0 25"}, {"ply": 49, "move_number": 25, "move_label": "25...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nc3", "uci": "e4c3", "from_sq": "e4", "to_sq": "c3", "best": "Bb2+", "best_pv": "Bb2+ Kb1 Nc3#", "cp_black": 0.67, "win_black": 56.1, "win_loss": 43.9, "cpl": 1000, "classification": "blunder", "motifs": ["missed_mate", "missed_forcing_move"], "fen_before": "7k/5pbp/1p1p2p1/1rp5/4n3/4BP1P/2P3P1/2KR3R b - - 0 25", "fen_after": "7k/5pbp/1p1p2p1/1rp5/8/2n1BP1P/2P3P1/2KR3R w - - 1 26"}, {"ply": 50, "move_number": 26, "move_label": "26.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rxd6", "uci": "d1d6", "from_sq": "d1", "to_sq": "d6", "best": "Rxd6", "best_pv": "Rxd6 Rb1+ Kd2 Rxh1 Rd8+ Bf8 Kxc3 Kg7", "cp_black": 0.5, "win_black": 54.6, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1p2p1/1rp5/8/2n1BP1P/2P3P1/2KR3R w - - 1 26", "fen_after": "7k/5pbp/1p1R2p1/1rp5/8/2n1BP1P/2P3P1/2K4R b - - 0 26"}, {"ply": 51, "move_number": 26, "move_label": "26...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rb1+", "uci": "b5b1", "from_sq": "b5", "to_sq": "b1", "best": "Rb1+", "best_pv": "Rb1+ Kd2 Rxh1 Rd8+ Bf8 Kxc3 Kg7 Kc4", "cp_black": 0.51, "win_black": 54.7, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1R2p1/1rp5/8/2n1BP1P/2P3P1/2K4R b - - 0 26", "fen_after": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2P3P1/1rK4R w - - 1 27"}, {"ply": 52, "move_number": 27, "move_label": "27.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kd2", "uci": "c1d2", "from_sq": "c1", "to_sq": "d2", "best": "Kd2", "best_pv": "Kd2 Rxh1 Rd8+ Bf8 Kxc3 Kg7 Kc4 Rb1", "cp_black": 0.56, "win_black": 55.1, "win_loss": 0.5, "cpl": 5, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2P3P1/1rK4R w - - 1 27", "fen_after": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2PK2P1/1r5R b - - 2 27"}, {"ply": 53, "move_number": 27, "move_label": "27...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxh1", "uci": "b1h1", "from_sq": "b1", "to_sq": "h1", "best": "Rxh1", "best_pv": "Rxh1 Rd8+ Bf8 Kxc3 Kg7 Kc4 Rb1 Rb8", "cp_black": 0.6, "win_black": 55.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2PK2P1/1r5R b - - 2 27", "fen_after": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 0 28"}, {"ply": 54, "move_number": 28, "move_label": "28.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rd8+", "uci": "d6d8", "from_sq": "d6", "to_sq": "d8", "best": "Rd8+", "best_pv": "Rd8+ Bf8 Kxc3 Kg7 Kc4 Rb1 Rb8 Rb2", "cp_black": 0.57, "win_black": 55.2, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "7k/5pbp/1p1R2p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 0 28", "fen_after": "3R3k/5pbp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 1 28"}, {"ply": 55, "move_number": 28, "move_label": "28...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Bf8", "uci": "g7f8", "from_sq": "g7", "to_sq": "f8", "best": "Bf8", "best_pv": "Bf8 Kxc3 Kg7 Kc4 Rb1 Rb8 Rb2 Kd3", "cp_black": 0.33, "win_black": 53.0, "win_loss": 2.2, "cpl": 24, "classification": "good", "motifs": [], "fen_before": "3R3k/5pbp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 1 28", "fen_after": "3R1b1k/5p1p/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 2 29"}, {"ply": 56, "move_number": 29, "move_label": "29.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rxf8+", "uci": "d8f8", "from_sq": "d8", "to_sq": "f8", "best": "Rxf8+", "best_pv": "Rxf8+ Kg7 Rb8 Nd5 c4 Nxe3 Kxe3 Rb1", "cp_black": 0.35, "win_black": 53.2, "win_loss": 0.2, "cpl": 2, "classification": "best", "motifs": [], "fen_before": "3R1b1k/5p1p/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 2 29", "fen_after": "5R1k/5p1p/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 0 29"}, {"ply": 57, "move_number": 29, "move_label": "29...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Kg7", "uci": "h8g7", "from_sq": "h8", "to_sq": "g7", "best": "Kg7", "best_pv": "Kg7 Rb8 Na4 Bf4 g5 Bxg5 Rh2 Bd8", "cp_black": 0.33, "win_black": 53.0, "win_loss": 0.2, "cpl": 2, "classification": "best", "motifs": [], "fen_before": "5R1k/5p1p/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 0 29", "fen_after": "5R2/5pkp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 1 30"}, {"ply": 58, "move_number": 30, "move_label": "30.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rb8", "uci": "f8b8", "from_sq": "f8", "to_sq": "b8", "best": "Rb8", "best_pv": "Rb8 Nd5 c4 Nxe3 Kxe3 Rb1 Ke4 Kf6", "cp_black": 0.29, "win_black": 52.7, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "5R2/5pkp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r w - - 1 30", "fen_after": "1R6/5pkp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 2 30"}, {"ply": 59, "move_number": 30, "move_label": "30...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Na4", "uci": "c3a4", "from_sq": "c3", "to_sq": "a4", "best": "Nd5", "best_pv": "Nd5 c4 Nxe3 Kxe3 Rb1 Ke4 h5 g4", "cp_black": 0.2, "win_black": 51.8, "win_loss": 0.8, "cpl": 9, "classification": "best", "motifs": [], "fen_before": "1R6/5pkp/1p4p1/2p5/8/2n1BP1P/2PK2P1/7r b - - 2 30", "fen_after": "1R6/5pkp/1p4p1/2p5/n7/4BP1P/2PK2P1/7r w - - 3 31"}, {"ply": 60, "move_number": 31, "move_label": "31.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rb7", "uci": "b8b7", "from_sq": "b8", "to_sq": "b7", "best": "Bf4", "best_pv": "Bf4 g5 Bc7 Rg1 g4 f6 Bxb6 Rg2+", "cp_black": 3.44, "win_black": 78.0, "win_loss": 26.2, "cpl": 324, "classification": "mistake", "motifs": ["quiet_move_missed"], "fen_before": "1R6/5pkp/1p4p1/2p5/n7/4BP1P/2PK2P1/7r w - - 3 31", "fen_after": "8/1R3pkp/1p4p1/2p5/n7/4BP1P/2PK2P1/7r b - - 4 31"}, {"ply": 61, "move_number": 31, "move_label": "31...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rh2", "uci": "h1h2", "from_sq": "h1", "to_sq": "h2", "best": "Rh2", "best_pv": "Rh2 Ke1 Rxg2 Bd2 c4 Ra7 b5 Rb7", "cp_black": 4.32, "win_black": 83.1, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "8/1R3pkp/1p4p1/2p5/n7/4BP1P/2PK2P1/7r b - - 4 31", "fen_after": "8/1R3pkp/1p4p1/2p5/n7/4BP1P/2PK2Pr/8 w - - 5 32"}, {"ply": 62, "move_number": 32, "move_label": "32.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Ra7", "uci": "b7a7", "from_sq": "b7", "to_sq": "a7", "best": "Ke1", "best_pv": "Ke1 Rxg2 Bd2 c4 Ra7 b5 Ra5 Kf6", "cp_black": 5.66, "win_black": 88.9, "win_loss": 5.9, "cpl": 134, "classification": "good", "motifs": [], "fen_before": "8/1R3pkp/1p4p1/2p5/n7/4BP1P/2PK2Pr/8 w - - 5 32", "fen_after": "8/R4pkp/1p4p1/2p5/n7/4BP1P/2PK2Pr/8 b - - 6 32"}, {"ply": 63, "move_number": 32, "move_label": "32...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nb2", "uci": "a4b2", "from_sq": "a4", "to_sq": "b2", "best": "Rxg2+", "best_pv": "Rxg2+ Kc1 Nc3 Rd7 Ne2+ Kd1 Rh2 Ke1", "cp_black": 4.84, "win_black": 85.6, "win_loss": 3.3, "cpl": 82, "classification": "good", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/n7/4BP1P/2PK2Pr/8 b - - 6 32", "fen_after": "8/R4pkp/1p4p1/2p5/8/4BP1P/1nPK2Pr/8 w - - 7 33"}, {"ply": 64, "move_number": 33, "move_label": "33.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kc3", "uci": "d2c3", "from_sq": "d2", "to_sq": "c3", "best": "Bf4", "best_pv": "Bf4 Rxg2+ Kc3 Nd1+ Kd3 Nf2+ Kc4 Nxh3", "cp_black": 5.8, "win_black": 89.4, "win_loss": 3.8, "cpl": 96, "classification": "good", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/4BP1P/1nPK2Pr/8 w - - 7 33", "fen_after": "8/R4pkp/1p4p1/2p5/8/2K1BP1P/1nP3Pr/8 b - - 8 33"}, {"ply": 65, "move_number": 33, "move_label": "33...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nd1+", "uci": "b2d1", "from_sq": "b2", "to_sq": "d1", "best": "Nd1+", "best_pv": "Nd1+ Kd2 Nxe3 Kxe3 Rxg2 Rb7 Rxc2 Rxb6", "cp_black": 6.36, "win_black": 91.2, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/2K1BP1P/1nP3Pr/8 b - - 8 33", "fen_after": "8/R4pkp/1p4p1/2p5/8/2K1BP1P/2P3Pr/3n4 w - - 9 34"}, {"ply": 66, "move_number": 34, "move_label": "34.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kd3", "uci": "c3d3", "from_sq": "c3", "to_sq": "d3", "best": "Kd2", "best_pv": "Kd2 Nxe3 Kxe3 Rxg2 Rb7 Rxc2 Rxb6 Rc4", "cp_black": 6.37, "win_black": 91.3, "win_loss": 0.0, "cpl": 1, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/2K1BP1P/2P3Pr/3n4 w - - 9 34", "fen_after": "8/R4pkp/1p4p1/2p5/8/3KBP1P/2P3Pr/3n4 b - - 10 34"}, {"ply": 67, "move_number": 34, "move_label": "34...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Nxe3", "uci": "d1e3", "from_sq": "d1", "to_sq": "e3", "best": "Nxe3", "best_pv": "Nxe3 Kxe3 Rxg2 Rb7 Rxc2 Rxb6 Rc4 Rc6", "cp_black": 6.27, "win_black": 91.0, "win_loss": 0.3, "cpl": 10, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/3KBP1P/2P3Pr/3n4 b - - 10 34", "fen_after": "8/R4pkp/1p4p1/2p5/8/3KnP1P/2P3Pr/8 w - - 0 35"}, {"ply": 68, "move_number": 35, "move_label": "35.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kxe3", "uci": "d3e3", "from_sq": "d3", "to_sq": "e3", "best": "Kxe3", "best_pv": "Kxe3 Rxg2 c4 Rc2 Kd3 Rh2 Ra6 Rxh3", "cp_black": 6.16, "win_black": 90.6, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/3KnP1P/2P3Pr/8 w - - 0 35", "fen_after": "8/R4pkp/1p4p1/2p5/8/4KP1P/2P3Pr/8 b - - 0 35"}, {"ply": 69, "move_number": 35, "move_label": "35...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxg2", "uci": "h2g2", "from_sq": "h2", "to_sq": "g2", "best": "Rxg2", "best_pv": "Rxg2 c4 Rc2 Kd3 Rh2 Ra6 Rxh3 Ke4", "cp_black": 5.96, "win_black": 90.0, "win_loss": 0.6, "cpl": 20, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/4KP1P/2P3Pr/8 b - - 0 35", "fen_after": "8/R4pkp/1p4p1/2p5/8/4KP1P/2P3r1/8 w - - 0 36"}, {"ply": 70, "move_number": 36, "move_label": "36.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "c4", "uci": "c2c4", "from_sq": "c2", "to_sq": "c4", "best": "Ra2", "best_pv": "Ra2 g5 Ke4 Kg6 f4 Rg3 fxg5 Rxh3", "cp_black": 6.22, "win_black": 90.8, "win_loss": 0.8, "cpl": 26, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/8/4KP1P/2P3r1/8 w - - 0 36", "fen_after": "8/R4pkp/1p4p1/2p5/2P5/4KP1P/6r1/8 b - - 0 36"}, {"ply": 71, "move_number": 36, "move_label": "36...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rh2", "uci": "g2h2", "from_sq": "g2", "to_sq": "h2", "best": "Rc2", "best_pv": "Rc2 Kd3 Rh2 Ra6 Rxh3 Ke4 Rh4+ f4", "cp_black": 6.14, "win_black": 90.6, "win_loss": 0.2, "cpl": 8, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/2P5/4KP1P/6r1/8 b - - 0 36", "fen_after": "8/R4pkp/1p4p1/2p5/2P5/4KP1P/7r/8 w - - 1 37"}, {"ply": 72, "move_number": 37, "move_label": "37.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rb7", "uci": "a7b7", "from_sq": "a7", "to_sq": "b7", "best": "Ra6", "best_pv": "Ra6 Rb2 Ke4 Rb4 Kd5 h5 Ra1 Kf6", "cp_black": 6.28, "win_black": 91.0, "win_loss": 0.4, "cpl": 14, "classification": "best", "motifs": [], "fen_before": "8/R4pkp/1p4p1/2p5/2P5/4KP1P/7r/8 w - - 1 37", "fen_after": "8/1R3pkp/1p4p1/2p5/2P5/4KP1P/7r/8 b - - 2 37"}, {"ply": 73, "move_number": 37, "move_label": "37...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rxh3", "uci": "h2h3", "from_sq": "h2", "to_sq": "h3", "best": "Rb2", "best_pv": "Rb2 Ke4 Rb4 Kd5 g5 Re7 Rb3 Rb7", "cp_black": 6.11, "win_black": 90.5, "win_loss": 0.5, "cpl": 17, "classification": "best", "motifs": [], "fen_before": "8/1R3pkp/1p4p1/2p5/2P5/4KP1P/7r/8 b - - 2 37", "fen_after": "8/1R3pkp/1p4p1/2p5/2P5/4KP1r/8/8 w - - 0 38"}, {"ply": 74, "move_number": 38, "move_label": "38.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rxb6", "uci": "b7b6", "from_sq": "b7", "to_sq": "b6", "best": "Rxb6", "best_pv": "Rxb6 Rh5 f4 Rf5 Rb8 h5 Rb2 Kf6", "cp_black": 6.31, "win_black": 91.1, "win_loss": 0.6, "cpl": 20, "classification": "best", "motifs": [], "fen_before": "8/1R3pkp/1p4p1/2p5/2P5/4KP1r/8/8 w - - 0 38", "fen_after": "8/5pkp/1R4p1/2p5/2P5/4KP1r/8/8 b - - 0 38"}, {"ply": 75, "move_number": 38, "move_label": "38...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rh1", "uci": "h3h1", "from_sq": "h3", "to_sq": "h1", "best": "Rh5", "best_pv": "Rh5 Rb2 Rf5 Ke4 Kf6 f4 h5 Rh2", "cp_black": 6.46, "win_black": 91.5, "win_loss": 0, "cpl": 0, "classification": "best", "motifs": [], "fen_before": "8/5pkp/1R4p1/2p5/2P5/4KP1r/8/8 b - - 0 38", "fen_after": "8/5pkp/1R4p1/2p5/2P5/4KP2/8/7r w - - 1 39"}, {"ply": 76, "move_number": 39, "move_label": "39.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rc6", "uci": "b6c6", "from_sq": "b6", "to_sq": "c6", "best": "Rc6", "best_pv": "Rc6 Rh5 f4 Rf5 Kf3 g5 Kg4 Rxf4+", "cp_black": 6.51, "win_black": 91.7, "win_loss": 0.1, "cpl": 5, "classification": "best", "motifs": [], "fen_before": "8/5pkp/1R4p1/2p5/2P5/4KP2/8/7r w - - 1 39", "fen_after": "8/5pkp/2R3p1/2p5/2P5/4KP2/8/7r b - - 2 39"}, {"ply": 77, "move_number": 39, "move_label": "39...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Rc1", "uci": "h1c1", "from_sq": "h1", "to_sq": "c1", "best": "Rh5", "best_pv": "Rh5 f4 Rf5 Kf3 g5 Kg4 Rxf4+ Kxg5", "cp_black": 5.94, "win_black": 89.9, "win_loss": 1.8, "cpl": 57, "classification": "best", "motifs": [], "fen_before": "8/5pkp/2R3p1/2p5/2P5/4KP2/8/7r b - - 2 39", "fen_after": "8/5pkp/2R3p1/2p5/2P5/4KP2/8/2r5 w - - 3 40"}, {"ply": 78, "move_number": 40, "move_label": "40.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rxc5", "uci": "c6c5", "from_sq": "c6", "to_sq": "c5", "best": "Rxc5", "best_pv": "Rxc5 h5 Kd2 Ra1 Kd3 h4 Rb5 Rc1", "cp_black": 6.15, "win_black": 90.6, "win_loss": 0.7, "cpl": 21, "classification": "best", "motifs": [], "fen_before": "8/5pkp/2R3p1/2p5/2P5/4KP2/8/2r5 w - - 3 40", "fen_after": "8/5pkp/6p1/2R5/2P5/4KP2/8/2r5 b - - 0 40"}, {"ply": 79, "move_number": 40, "move_label": "40...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Kf6", "uci": "g7f6", "from_sq": "g7", "to_sq": "f6", "best": "h5", "best_pv": "h5 Kf4 Rc3 Rc7 Rc2 Rc5 Rc1 Kg3", "cp_black": 4.31, "win_black": 83.0, "win_loss": 7.6, "cpl": 184, "classification": "good", "motifs": [], "fen_before": "8/5pkp/6p1/2R5/2P5/4KP2/8/2r5 b - - 0 40", "fen_after": "8/5p1p/5kp1/2R5/2P5/4KP2/8/2r5 w - - 1 41"}, {"ply": 80, "move_number": 41, "move_label": "41.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Kd4", "uci": "e3d4", "from_sq": "e3", "to_sq": "d4", "best": "Rc6+", "best_pv": "Rc6+ Ke5 Rc5+ Kd6 Rd5+ Ke6 Rd4 Rc3+", "cp_black": 6.44, "win_black": 91.5, "win_loss": 8.4, "cpl": 213, "classification": "good", "motifs": [], "fen_before": "8/5p1p/5kp1/2R5/2P5/4KP2/8/2r5 w - - 1 41", "fen_after": "8/5p1p/5kp1/2R5/2PK4/5P2/8/2r5 b - - 2 41"}, {"ply": 81, "move_number": 41, "move_label": "41...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "Ke6", "uci": "f6e6", "from_sq": "f6", "to_sq": "e6", "best": "h5", "best_pv": "h5 Rc6+ Kg7 Rb6 h4 f4 Kh6 Rb8", "cp_black": 4.78, "win_black": 85.3, "win_loss": 6.1, "cpl": 166, "classification": "good", "motifs": [], "fen_before": "8/5p1p/5kp1/2R5/2PK4/5P2/8/2r5 b - - 2 41", "fen_after": "8/5p1p/4k1p1/2R5/2PK4/5P2/8/2r5 w - - 3 42"}, {"ply": 82, "move_number": 42, "move_label": "42.", "player": "Onymuslb (White)", "color": "white", "is_mine": false, "san": "Rd5", "uci": "c5d5", "from_sq": "c5", "to_sq": "d5", "best": "Rc6+", "best_pv": "Rc6+ Kf5 Rc7 Kf6 Rc6+ Kg7 c5 h5", "cp_black": 10.01, "win_black": 97.5, "win_loss": 12.2, "cpl": 523, "classification": "inaccuracy", "motifs": [], "fen_before": "8/5p1p/4k1p1/2R5/2PK4/5P2/8/2r5 w - - 3 42", "fen_after": "8/5p1p/4k1p1/3R4/2PK4/5P2/8/2r5 b - - 4 42"}, {"ply": 83, "move_number": 42, "move_label": "42...", "player": "Matty (Black)", "color": "black", "is_mine": true, "san": "h5", "uci": "h7h5", "from_sq": "h7", "to_sq": "h5", "best": "Rd1+", "best_pv": "Rd1+ Ke4 Rxd5 f4 Rc5 f5+ Rxf5 Ke3", "cp_black": 6.36, "win_black": 91.2, "win_loss": 6.3, "cpl": 365, "classification": "good", "motifs": [], "fen_before": "8/5p1p/4k1p1/3R4/2PK4/5P2/8/2r5 b - - 4 42", "fen_after": "8/5p2/4k1p1/3R3p/2PK4/5P2/8/2r5 w - - 0 43"}];
+
+    let currentMode = 'win'; // 'win' | 'cp'
+    let currentIdx = 0;
+    let flipBlack = true; // Black POV default
+    let isPlaying = false;
+    let playTimer = null;
+
+    const padLeft = 45;
+    const padRight = 20;
+    const padTop = 15;
+    const padBottom = 20;
+    const chartW = 800;
+    const chartH = 120;
+    const plotW = chartW - padLeft - padRight;
+    const plotH = chartH - padTop - padBottom;
+
+    const boardPx = 340;
+    const sqSize = boardPx / 8; // 42.5px
+
+    function getX(index) {
+      return padLeft + (index / (data.length - 1)) * plotW;
+    }
+
+    function getY(item, mode) {
+      if (mode === 'win') {
+        const win = Math.max(0, Math.min(100, item.win_black));
+        return padTop + (1 - (win / 100)) * plotH;
+      } else {
+        const cp = Math.max(-10, Math.min(10, item.cp_black));
+        return padTop + (1 - ((cp + 10) / 20)) * plotH;
+      }
+    }
+
+    function getMidY() {
+      return padTop + 0.5 * plotH;
+    }
+
+    function renderChart() {
+      const midY = getMidY();
+      document.getElementById('midLine').setAttribute('y1', midY);
+      document.getElementById('midLine').setAttribute('y2', midY);
+      
+      if (currentMode === 'win') {
+        document.getElementById('midLabel').textContent = '50%';
+        document.getElementById('topLabel').textContent = '100%';
+        document.getElementById('botLabel').textContent = '0%';
+      } else {
+        document.getElementById('midLabel').textContent = '0.0';
+        document.getElementById('topLabel').textContent = '+10';
+        document.getElementById('botLabel').textContent = '-10';
+      }
+
+      let lineD = '';
+      let areaD = `M ${getX(0)} ${midY}`;
+
+      data.forEach((d, i) => {
+        const x = getX(i);
+        const y = getY(d, currentMode);
+        if (i === 0) {
+          lineD += `M ${x} ${y}`;
+          areaD += ` L ${x} ${y}`;
+        } else {
+          lineD += ` L ${x} ${y}`;
+          areaD += ` L ${x} ${y}`;
+        }
+      });
+
+      const lastX = getX(data.length - 1);
+      areaD += ` L ${lastX} ${midY} Z`;
+
+      document.getElementById('linePath').setAttribute('d', lineD);
+      document.getElementById('areaPath').setAttribute('d', areaD);
+
+      // Render markers
+      const markersGroup = document.getElementById('markersGroup');
+      markersGroup.innerHTML = '';
+
+      data.forEach((d, i) => {
+        if (d.classification === 'blunder' || d.classification === 'mistake' || d.classification === 'inaccuracy') {
+          const x = getX(i);
+          const y = getY(d, currentMode);
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', x);
+          circle.setAttribute('cy', y);
+
+          let color = '#ef4444';
+          let r = 4.5;
+          if (d.classification === 'mistake') { color = '#f97316'; r = 3.8; }
+          else if (d.classification === 'inaccuracy') { color = '#eab308'; r = 3.2; }
+
+          circle.setAttribute('r', r);
+          circle.setAttribute('fill', color);
+          circle.setAttribute('stroke', '#ffffff');
+          circle.setAttribute('stroke-width', '1.5');
+          circle.setAttribute('class', 'cursor-pointer hover:scale-150 transition-transform');
+          circle.onclick = () => selectMove(i);
+          markersGroup.appendChild(circle);
+        }
+      });
+    }
+
+    function renderBoard(d) {
+      const fen = d.fen_after;
+      const fenBoard = fen.split(' ')[0];
+      const rows = fenBoard.split('/');
+
+      const squaresG = document.getElementById('boardSquares');
+      const highlightsG = document.getElementById('boardHighlights');
+      const piecesG = document.getElementById('boardPieces');
+      const coordsG = document.getElementById('boardCoords');
+
+      squaresG.innerHTML = '';
+      highlightsG.innerHTML = '';
+      piecesG.innerHTML = '';
+      coordsG.innerHTML = '';
+
+      // Squares
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const x = c * sqSize;
+          const y = r * sqSize;
+          const isLight = (r + c) % 2 === 0;
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', x);
+          rect.setAttribute('y', y);
+          rect.setAttribute('width', sqSize);
+          rect.setAttribute('height', sqSize);
+          rect.setAttribute('class', isLight ? 'square-light' : 'square-dark');
+          squaresG.appendChild(rect);
+        }
+      }
+
+      // Highlights for played move
+      function sqToXY(sqStr) {
+        if (!sqStr || sqStr.length < 2) return null;
+        const file = sqStr.charCodeAt(0) - 97;
+        const rank = parseInt(sqStr[1]) - 1;
+        const col = flipBlack ? (7 - file) : file;
+        const row = flipBlack ? rank : (7 - rank);
+        return { x: col * sqSize, y: row * sqSize };
+      }
+
+      const fromPt = sqToXY(d.from_sq);
+      const toPt = sqToXY(d.to_sq);
+
+      [fromPt, toPt].forEach(pt => {
+        if (pt) {
+          const h = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          h.setAttribute('x', pt.x);
+          h.setAttribute('y', pt.y);
+          h.setAttribute('width', sqSize);
+          h.setAttribute('height', sqSize);
+          h.setAttribute('class', 'highlight-move');
+          highlightsG.appendChild(h);
+        }
+      });
+
+      // Pieces
+      for (let r = 0; r < 8; r++) {
+        const rowIdx = flipBlack ? (7 - r) : r;
+        const rowStr = rows[rowIdx];
+        let c = 0;
+        for (let i = 0; i < rowStr.length; i++) {
+          const ch = rowStr[i];
+          if (ch >= '1' && ch <= '8') {
+            c += parseInt(ch);
+          } else {
+            const col = flipBlack ? (7 - c) : c;
+            const x = col * sqSize;
+            const y = r * sqSize;
+
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const scale = sqSize / 45;
+            g.setAttribute('transform', `translate(${x}, ${y}) scale(${scale})`);
+
+            const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+            use.setAttribute('href', `#piece-${ch}`);
+            use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', `#piece-${ch}`);
+            g.appendChild(use);
+            piecesG.appendChild(g);
+            c++;
+          }
+        }
+      }
+
+      // Coordinates
+      const files = flipBlack ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+      const ranks = flipBlack ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
+
+      for (let i = 0; i < 8; i++) {
+        const tF = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        tF.setAttribute('x', i * sqSize + sqSize - 6.5);
+        tF.setAttribute('y', boardPx - 2.5);
+        tF.setAttribute('class', 'coord-text ' + ((i % 2 === 1) ? 'fill-[#b58863]' : 'fill-[#f0d9b5]'));
+        tF.textContent = files[i];
+        coordsG.appendChild(tF);
+
+        const tR = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        tR.setAttribute('x', 2.5);
+        tR.setAttribute('y', i * sqSize + 9);
+        tR.setAttribute('class', 'coord-text ' + ((i % 2 === 0) ? 'fill-[#b58863]' : 'fill-[#f0d9b5]'));
+        tR.textContent = ranks[i];
+        coordsG.appendChild(tR);
+      }
+    }
+
+    function selectMove(index) {
+      currentIdx = Math.max(0, Math.min(data.length - 1, index));
+      const d = data[currentIdx];
+
+      const hoverGuide = document.getElementById('hoverGuide');
+      const hoverPoint = document.getElementById('hoverPoint');
+      const x = getX(currentIdx);
+      const y = getY(d, currentMode);
+
+      hoverGuide.setAttribute('x1', x);
+      hoverGuide.setAttribute('x2', x);
+      hoverGuide.setAttribute('class', 'opacity-60 pointer-events-none');
+      hoverPoint.setAttribute('cx', x);
+      hoverPoint.setAttribute('cy', y);
+      hoverPoint.setAttribute('class', 'opacity-100 pointer-events-none');
+
+      document.getElementById('detailMove').textContent = `${d.move_label} ${d.san}`;
+      document.getElementById('detailPlayer').textContent = `Played by ${d.player}`;
+      document.getElementById('plyCounter').textContent = `${currentIdx + 1} / ${data.length}`;
+      
+      const winEl = document.getElementById('detailWin');
+      winEl.textContent = `${d.win_black}%`;
+      if (d.win_black >= 60) winEl.className = 'text-xl font-bold text-emerald-400 font-mono mt-0.5';
+      else if (d.win_black <= 40) winEl.className = 'text-xl font-bold text-rose-400 font-mono mt-0.5';
+      else winEl.className = 'text-xl font-bold text-white font-mono mt-0.5';
+
+      document.getElementById('detailCp').textContent = `${d.cp_black > 0 ? '+' : ''}${d.cp_black}`;
+      document.getElementById('detailCpl').textContent = d.cpl;
+      
+      const swingEl = document.getElementById('boxWinLoss');
+      if (d.win_loss > 3) {
+        swingEl.textContent = `-${d.win_loss}% swing`;
+        swingEl.className = 'text-[10px] text-rose-400 mt-0.5 font-medium';
+      } else {
+        swingEl.textContent = 'Steady play';
+        swingEl.className = 'text-[10px] text-slate-500 mt-0.5';
+      }
+
+      const badge = document.getElementById('badgeClass');
+      let badgeStyle = 'bg-sky-500/20 text-sky-400 border border-sky-500/30';
+      if (d.classification === 'blunder') badgeStyle = 'bg-rose-500/20 text-rose-400 border border-rose-500/30';
+      else if (d.classification === 'mistake') badgeStyle = 'bg-amber-500/20 text-amber-400 border border-amber-500/30';
+      else if (d.classification === 'inaccuracy') badgeStyle = 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30';
+      else if (d.classification === 'best') badgeStyle = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+      badge.className = `px-2.5 py-1 rounded-full font-bold text-xs uppercase tracking-wider ${badgeStyle}`;
+      badge.textContent = d.classification;
+
+      const bestEl = document.getElementById('detailBest');
+      if (d.best && d.best !== d.san && d.best !== '-') {
+        bestEl.textContent = `${d.move_label} ${d.best}!`;
+        bestEl.className = 'font-bold text-emerald-400 font-mono text-sm';
+      } else {
+        bestEl.textContent = 'Top engine move';
+        bestEl.className = 'font-medium text-slate-400';
+      }
+
+      document.getElementById('detailPv').textContent = d.best_pv || '-';
+
+      const motifsDiv = document.getElementById('motifsBadges');
+      motifsDiv.innerHTML = '';
+      if (d.motifs && d.motifs.length > 0) {
+        d.motifs.forEach(m => {
+          const span = document.createElement('span');
+          span.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[11px] border border-slate-700/50';
+          span.textContent = m.replace(/_/g, ' ');
+          motifsDiv.appendChild(span);
+        });
+      } else {
+        const span = document.createElement('span');
+        span.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[11px]';
+        span.textContent = d.win_black > 60 ? 'Black has winning advantage' : (d.win_black < 40 ? 'White has winning advantage' : 'Balanced position');
+        motifsDiv.appendChild(span);
+      }
+
+      // Highlight active move in notation grid
+      document.querySelectorAll('.move-grid-btn').forEach((btn, i) => {
+        if (i === currentIdx) {
+          btn.classList.add('bg-sky-500/30', 'text-sky-300', 'border-sky-500/50');
+        } else {
+          btn.classList.remove('bg-sky-500/30', 'text-sky-300', 'border-sky-500/50');
+        }
+      });
+
+      renderBoard(d);
+    }
+
+    function stepMove(delta) {
+      selectMove(currentIdx + delta);
+    }
+
+    function jumpToPly(ply) {
+      const idx = data.findIndex(d => d.ply === ply);
+      if (idx !== -1) selectMove(idx);
+    }
+
+    function toggleFlip() {
+      flipBlack = !flipBlack;
+      document.getElementById('flipLabel').textContent = flipBlack ? 'Black POV (You)' : 'White POV';
+      renderBoard(data[currentIdx]);
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const btn = document.getElementById('btnPlay');
+      const icon = document.getElementById('playIcon');
+      const label = document.getElementById('playLabel');
+      if (isPlaying) {
+        icon.textContent = '⏸';
+        label.textContent = 'Pause';
+        btn.className = 'px-2.5 h-7 flex items-center justify-center rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 text-xs font-bold gap-1';
+        playTimer = setInterval(() => {
+          if (currentIdx >= data.length - 1) {
+            togglePlay();
+          } else {
+            stepMove(1);
+          }
+        }, 900);
+      } else {
+        icon.textContent = '▶';
+        label.textContent = 'Play';
+        btn.className = 'px-2.5 h-7 flex items-center justify-center rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-bold gap-1';
+        if (playTimer) clearInterval(playTimer);
+      }
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('btnWin').className = mode === 'win'
+        ? 'px-3 py-1 rounded-md font-semibold bg-slate-800 text-white shadow transition-colors'
+        : 'px-3 py-1 rounded-md font-medium text-slate-400 hover:text-white transition-colors';
+      document.getElementById('btnCp').className = mode === 'cp'
+        ? 'px-3 py-1 rounded-md font-semibold bg-slate-800 text-white shadow transition-colors'
+        : 'px-3 py-1 rounded-md font-medium text-slate-400 hover:text-white transition-colors';
+      renderChart();
+      selectMove(currentIdx);
+    }
+
+    // Build moves notation grid
+    const grid = document.getElementById('movesGrid');
+    data.forEach((d, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'move-grid-btn p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-left border border-slate-800/80 transition-colors flex items-center justify-between text-xs font-mono';
+      
+      let badgeDot = '';
+      if (d.classification === 'blunder') badgeDot = '<span class="w-2 h-2 rounded-full bg-rose-500"></span>';
+      else if (d.classification === 'mistake') badgeDot = '<span class="w-2 h-2 rounded-full bg-amber-500"></span>';
+      else if (d.classification === 'inaccuracy') badgeDot = '<span class="w-2 h-2 rounded-full bg-yellow-400"></span>';
+
+      btn.innerHTML = `<span><span class="text-slate-500">${d.move_label}</span> ${d.san}</span> ${badgeDot}`;
+      btn.onclick = () => selectMove(i);
+      grid.appendChild(btn);
+    });
+
+    // Chart pointer scrubbing
+    const svg = document.getElementById('chartSvg');
+    function handlePointerPos(clientX) {
+      const rect = svg.getBoundingClientRect();
+      const xRel = clientX - rect.left;
+      const svgX = (xRel / rect.width) * chartW;
+
+      let bestIdx = 0;
+      let minDiff = Infinity;
+      data.forEach((d, i) => {
+        const diff = Math.abs(getX(i) - svgX);
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestIdx = i;
+        }
+      });
+      selectMove(bestIdx);
+    }
+
+    svg.addEventListener('mousemove', (e) => {
+      handlePointerPos(e.clientX);
+    });
+
+    svg.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        handlePointerPos(e.touches[0].clientX);
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    svg.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        handlePointerPos(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    // Initialize
+    renderChart();
+    // Default highlight move 16... Qxc6
+    const defIdx = data.findIndex(d => d.ply === 31);
+    selectMove(defIdx !== -1 ? defIdx : 0);
+  </script>
+</body>
+</html>
