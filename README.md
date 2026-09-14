@@ -51,7 +51,7 @@ chesscom = "your_username_here"
 uv run chess-coach fetch --since 2026-01 --limit 50
 
 # 2. Have Stockfish grade every move. This is the slow step:
-#    ~2.6 min per 40-move game at the default depth 16.
+#    ~2.5 min per 80-ply game at the default depth 16.
 uv run chess-coach analyze --limit 20
 
 # 3. Look at one game in detail

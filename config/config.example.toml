@@ -11,13 +11,13 @@ lichess = ""
 # Relative paths are resolved from the project root.
 path = "data/engine/stockfish.exe"
 
-# How hard the engine thinks about each position. Search cost grows steeply:
-# these are measured on a 16-core machine, per 40-move game.
-#   depth 14, multipv 2  ~0.9 min/game   quick sweep of many games
-#   depth 16, multipv 2  ~2.6 min/game   the default. Plenty for club play.
-#   depth 16, multipv 3  ~3.3 min/game
-#   depth 18, multipv 3  ~5.2 min/game   slower, changes few verdicts
-#   depth 20, multipv 3  ~11 min/game    not worth it for coaching
+# How hard the engine thinks about each position. Cost roughly 4x per two
+# plies of depth. Measured on a 16-core machine, per 80-ply game, multipv 2:
+#   depth 12  ~0.2 min/game   rough triage over many games
+#   depth 14  ~0.6 min/game   quick sweep
+#   depth 16  ~2.5 min/game   the default. Plenty for club play.
+# Higher depths climb steeply and change few verdicts at club level, because
+# the mistakes being caught are worth hundreds of centipawns.
 depth = 16
 
 # Engine lines to compute per position. 2+ lets the tool say not just "that was
@@ -26,6 +26,9 @@ depth = 16
 multipv = 2
 
 # Leave one core free so your machine stays usable during a long review.
+# Analysis is very sensitive to competing CPU load -- a batch that should take
+# 8 minutes took 29 when other work ran alongside it. Lower this if you want to
+# keep using the machine while a long review runs.
 threads = 0        # 0 = auto (CPU count - 1, minimum 1)
 hash_mb = 256
 

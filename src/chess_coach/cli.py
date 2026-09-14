@@ -7,8 +7,7 @@ web UI can call the same functions without going through argv.
 
 from __future__ import annotations
 
-import json
-import sqlite3
+import sys
 from pathlib import Path
 
 import typer
@@ -30,6 +29,14 @@ app = typer.Typer(
 puzzles_app = typer.Typer(help="Practice material from your games and Lichess.",
                           no_args_is_help=True)
 app.add_typer(puzzles_app, name="puzzles")
+
+# Reports contain arrows, middle dots and chess figurines, and `review` prints
+# markdown straight to the terminal. On Windows a console running the legacy
+# cp1252 codepage cannot encode those and raises UnicodeEncodeError mid-command
+# -- so force UTF-8 rather than restricting what the reports may contain.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
 
 console = Console()
 
@@ -140,8 +147,8 @@ def analyze(
 
     console.print(f"Analyzing {len(rows)} games at depth {cfg.engine.depth}, "
                   f"{cfg.engine.multipv} lines per position.")
-    console.print("[dim]CPU-bound. Roughly 2.6 min per 40-move game at depth 16 "
-                  "on 16 cores; cost grows steeply with depth.[/dim]\n")
+    console.print("[dim]CPU-bound, and it wants every core. Roughly 2.5 min per "
+                  "80-ply game at depth 16 on 16 cores.[/dim]\n")
 
     try:
         with open_engine(cfg.engine) as engine:

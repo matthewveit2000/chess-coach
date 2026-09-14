@@ -26,10 +26,14 @@ They live in `.claude/commands/`.
 
 ### Long-running analysis
 
-`chess-coach analyze` is CPU-bound: roughly 2.6 minutes per 40-move game at the
-default depth 16, and over 5 minutes at depth 18. A 20-game batch is most of an
-hour. Run it with `run_in_background: true`, tell Matthew roughly how long it
-will take, and do not sit blocking on it.
+`chess-coach analyze` is CPU-bound: roughly 2.5 minutes per 80-ply game at the
+default depth 16, so a 20-game batch is most of an hour. Run it with
+`run_in_background: true`, tell Matthew roughly how long it will take, and do
+not sit blocking on it.
+
+It uses every core but one, and competing CPU work slows it disproportionately
+-- a three-game batch that should have taken eight minutes took 29 when other
+commands ran alongside it. While a batch is running, keep other work light.
 
 Note that results are written to the database only when a game finishes
 analyzing, so an empty `move_evals` table mid-run is expected, not a failure.

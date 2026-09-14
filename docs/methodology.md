@@ -121,21 +121,44 @@ count. The absence of "pin" in your results means nothing at all.
 | `threads` | CPU cores. Defaults to your core count minus one so the machine stays usable. |
 | `hash_mb` | Transposition table. 256MB is fine for this workload. |
 
-Measured on a 16-core machine, timing one 40-move game (~72 analyzed positions):
+Measured on a 16-core Windows machine, `multipv = 2`, sampling positions evenly
+across opening, middlegame and endgame:
 
-| Settings | Per position | Per game |
+| Depth | Per position | Per 80-ply game |
 |---|---|---|
-| depth 14, multipv 2 | 0.73s | ~0.9 min |
-| **depth 16, multipv 2** | **2.15s** | **~2.6 min** (default) |
-| depth 16, multipv 3 | 2.76s | ~3.3 min |
-| depth 18, multipv 3 | 4.34s | ~5.2 min |
-| depth 20, multipv 3 | 9.17s | ~11 min |
+| 12 | 0.17s | ~0.2 min |
+| 14 | 0.48s | ~0.6 min |
+| **16** | **2.05s** | **~2.5 min** (default) |
 
-The jump from 16 to 20 costs roughly 4× the time. For grading club-level
-mistakes it changes very few verdicts, because the errors being caught are
-worth hundreds of centipawns, not the handful of centipawns that extra depth
-resolves. Reach for more depth when you want to settle one specific critical
-position, not for a batch review.
+Verified end-to-end rather than extrapolated: a real 56-ply game (49 positions)
+took **1m44s** at depth 16, i.e. 2.12s per position. Each step of two plies in
+depth costs roughly 4× the time.
+
+Cost is not spread evenly across a game:
+
+| Phase | Per position, depth 16 |
+|---|---|
+| Opening | 0.6s |
+| Middlegame | 1.8s |
+| Endgame | 3.7s |
+
+Endgames are the expensive part. Fewer pieces does not mean a smaller search at
+fixed depth — it means less material to prune on, so the search runs deeper
+before it can cut off. A long endgame can cost more than the middlegame that
+preceded it.
+
+### Analysis is sensitive to other CPU load
+
+`threads` defaults to your core count minus one, so Stockfish is using nearly
+the whole machine. Competing CPU work does not slow it proportionally — it
+slows it disproportionately, because parallel search degrades badly when its
+threads get descheduled.
+
+This is measured, not theoretical. The same three games that should take about
+eight minutes took **29 minutes** when other commands were run alongside the
+batch. If you are reviewing a lot of games, either leave the machine alone or
+lower `threads` in `config/config.toml` and accept a slower but more
+predictable run.
 
 ## Known limitations
 

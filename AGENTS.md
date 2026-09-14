@@ -64,10 +64,11 @@ uv run chess-coach fetch --since 2026-01 --limit 50
 uv run chess-coach analyze --limit 20
 ```
 
-Analysis is CPU-bound and slow — roughly 2.6 minutes per 40-move game at the
-default depth 16 (see `docs/methodology.md` for measured numbers at other
-settings). A 20-game batch is most of an hour. Run it in the background, say
-how long it will take, and do not block on it.
+Analysis is CPU-bound and slow — roughly 2.5 minutes per 80-ply game at the
+default depth 16 (see `docs/methodology.md` for measured numbers). A 20-game
+batch is most of an hour. Run it in the background, say how long it will take,
+and do not block on it. It uses every core but one, so keep other work light
+while a batch runs.
 
 ### 3. Read the output
 
