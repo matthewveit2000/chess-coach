@@ -23,6 +23,15 @@ from .base import GameRecord
 
 API = "https://lichess.org/api"
 
+# Lichess requires a descriptive User-Agent on the game-export endpoint. Without
+# one it answers 404 {"error":"Not found"} for accounts that plainly exist,
+# which reads like a bad username rather than a bad request -- so if export ever
+# starts 404ing for everyone, suspect this header before the username.
+USER_AGENT = (
+    "chess-coach/0.1 (personal game-review tool; "
+    "https://github.com/matthewveit2000/chess-coach)"
+)
+
 # Lichess "speed" values map onto the same vocabulary Chess.com uses, so trend
 # reports can mix sources without special-casing.
 SPEED_TO_TIME_CLASS = {
@@ -35,8 +44,12 @@ SPEED_TO_TIME_CLASS = {
 }
 
 
+class LichessError(RuntimeError):
+    pass
+
+
 def _headers() -> dict:
-    headers = {"Accept": "application/x-ndjson"}
+    headers = {"Accept": "application/x-ndjson", "User-Agent": USER_AGENT}
     token = os.environ.get("LICHESS_TOKEN", "").strip()
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -104,6 +117,17 @@ def fetch(
         f"{API}/games/user/{username}", params=params,
         headers=_headers(), stream=True, timeout=60,
     ) as resp:
+        if resp.status_code == 404:
+            raise LichessError(
+                f"Lichess returned 404 for '{username}'. Either the username is "
+                "wrong, or the request was sent without a User-Agent header -- "
+                "Lichess answers 404 rather than 403 in that case."
+            )
+        if resp.status_code == 429:
+            raise LichessError(
+                "Lichess is rate-limiting you. It allows one export request at a "
+                "time and needs about a minute to cool down. Wait, then retry."
+            )
         resp.raise_for_status()
         for line in resp.iter_lines():
             if not line:
