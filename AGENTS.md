@@ -166,3 +166,50 @@ assume he knows what a fork and a pin are, do not assume he knows what
   mention it in one line and let the user decide.
 - **Verification.** Do not claim a command works unless you ran it and saw the
   output. Say what the output was.
+
+## Dashboard & GitHub Pages Protocol
+
+The repository maintains a public, mobile-first, standalone web application at
+`index.html` deployed via GitHub Pages:
+- **Live URL:** `https://matthewveit2000.github.io/chess-coach/`
+- **Repo File:** `https://github.com/matthewveit2000/chess-coach/blob/main/index.html`
+
+This HTML document is the project's "one stop shop" for displaying games,
+evaluations, win curves, and practice drills.
+
+### Standing response rule
+
+**Every AI response must conclude with the two active links:**
+1. Live Dashboard (GitHub Pages): `https://matthewveit2000.github.io/chess-coach/`
+2. Dashboard Source File (GitHub Repo): `https://github.com/matthewveit2000/chess-coach/blob/main/index.html`
+
+### AI Coach Tips Protocol
+
+Whenever the dashboard is updated:
+1. The AI agent must personally review every non-best move (Inaccuracy, Mistake,
+   Miss, Blunder) made by the player across the stored games.
+2. The agent inspects: position FEN, played move, Stockfish candidate lines,
+   centipawn loss, opponent reply, and tactical motif tags.
+3. The agent generates **concise (1–2 sentence)**, club-level coaching tips
+   explaining the concrete tactical error (what was hung or allowed) and why the
+   engine's recommendation resolves it.
+4. These tips are baked into the embedded dataset in `index.html`. Never use
+   vague generic templates ("surrenders tactical advantage").
+
+### Dashboard UI & Architecture Rules
+
+- **Board is always visible:** The chessboard and vertical eval bar must stay
+  pinned at the top as the primary hero view across all tabs (`Coach`, `Chart`,
+  `Drill`, `Review`). Never hide the board inside a sub-tab.
+- **Standard pieces:** Always use standard Wikimedia/Lichess `cburnett` vector
+  SVG pieces with viewBox scaling. Never use rough approximations.
+- **Drill mode:** Must render the position *before* the blunder (`fen_before`),
+  prompting the player to calculate the best move before revealing the emerald
+  solution arrow.
+- **Variable scoping:** Declare all move classification variables in outer
+  function scope to prevent `ReferenceError` crashes during board navigation.
+- **Interactive chart:** Support pointer scrubbing (`mousemove`, `touchmove`,
+  `click`) with phase background shading (Opening, Middlegame, Endgame).
+- **Optimal line playback:** Provide an interactive controller to step through
+  or auto-play Stockfish's principal variation with guiding arrows.
+
