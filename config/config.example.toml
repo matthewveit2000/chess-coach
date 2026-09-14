@@ -1,0 +1,52 @@
+# Copy this file to config/config.toml and edit. config.toml is gitignored.
+
+[player]
+# Your usernames on each site. Leave a site blank if you don't play there.
+# These decide which side of each game is "you".
+chesscom = "YOUR_CHESSCOM_USERNAME"
+lichess = ""
+
+[engine]
+# Path to the Stockfish executable. `chess-coach setup-engine` fills this in.
+# Relative paths are resolved from the project root.
+path = "data/engine/stockfish.exe"
+
+# How hard the engine thinks about each position. Search cost grows steeply:
+# these are measured on a 16-core machine, per 40-move game.
+#   depth 14, multipv 2  ~0.9 min/game   quick sweep of many games
+#   depth 16, multipv 2  ~2.6 min/game   the default. Plenty for club play.
+#   depth 16, multipv 3  ~3.3 min/game
+#   depth 18, multipv 3  ~5.2 min/game   slower, changes few verdicts
+#   depth 20, multipv 3  ~11 min/game    not worth it for coaching
+depth = 16
+
+# Engine lines to compute per position. 2+ lets the tool say not just "that was
+# bad" but "this other move was also fine, yours was not". 3 gives richer
+# alternatives for about 30% more time.
+multipv = 2
+
+# Leave one core free so your machine stays usable during a long review.
+threads = 0        # 0 = auto (CPU count - 1, minimum 1)
+hash_mb = 256
+
+[analysis]
+# Plies to skip at the start of a game. Engine review of book moves is noise:
+# a "mistake" on move 3 of a mainline is usually just a different mainline.
+skip_opening_plies = 8
+
+# Classification thresholds, in *winning chances lost* (0.0-1.0 scale), matching
+# how Lichess grades moves. See docs/methodology.md for why this beats raw
+# centipawn thresholds.
+inaccuracy = 0.10
+mistake = 0.20
+blunder = 0.30
+
+# A position is "decided" when winning chances are already past this for either
+# side. Errors made in an already-won or already-lost position are still
+# recorded, but excluded from trend stats by default -- they teach you little.
+decided_threshold = 0.90
+
+[trends]
+# Minimum games in an opening before it shows up in trend reports. Below this,
+# win rate is noise.
+min_games_for_opening = 4

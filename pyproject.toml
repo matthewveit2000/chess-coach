@@ -1,0 +1,33 @@
+[project]
+name = "chess-coach"
+version = "0.1.0"
+description = "Engine-backed chess coaching: fetch your games, analyze them with Stockfish, find your recurring mistakes, and practice them."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "chess>=1.11.1",      # board logic, PGN parsing, UCI engine protocol
+    "requests>=2.32.0",   # chess.com / lichess HTTP APIs
+    "typer>=0.15.0",      # CLI
+    "rich>=13.9.0",       # terminal tables
+    "pandas>=2.2.0",      # trend aggregation
+]
+
+[project.optional-dependencies]
+puzzles = [
+    "zstandard>=0.23.0",  # only needed to decompress the Lichess puzzle database
+]
+
+[project.scripts]
+chess-coach = "chess_coach.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chess_coach"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

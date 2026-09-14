@@ -1,0 +1,25 @@
+# --- Project data (never commit game history or engine binaries) ---
+data/
+reports/
+config/config.toml
+.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# --- Editors / agents ---
+.vscode/
+.idea/
+.DS_Store
+
+# --- Explicitly allow the examples that teach setup ---
+!config/config.example.toml
+!.env.example
