@@ -29,6 +29,23 @@ an engine number in the database.
 
 No API keys required to get started. No paid tiers anywhere.
 
+### A note on Lichess
+
+Chess.com is the primary, fully-tested source. Lichess support exists to prove
+the source layer is pluggable, but comes with two catches worth knowing:
+
+- **Its game-export endpoint rejects requests without a descriptive
+  `User-Agent`, and answers `404 {"error":"Not found"}` when it does** -- which
+  looks exactly like a mistyped username. This tool sends one.
+- **It allows one export request at a time**, and a burst of requests can leave
+  you throttled (`429 Please only run 1 request(s) at a time`) for far longer
+  than the minute its docs suggest. A free
+  [personal access token](https://lichess.org/account/oauth/token) in `.env` as
+  `LICHESS_TOKEN` raises these limits considerably.
+
+Both failure modes are reported as readable errors rather than a raw HTTP
+exception. If you plan to use Lichess as your main source, get the token first.
+
 ## Setup
 
 ```bash
