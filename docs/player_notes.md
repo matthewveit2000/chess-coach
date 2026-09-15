@@ -1,18 +1,18 @@
 # Player Profile & Coaching Notes: Matthew (@MattyVSixtyNine)
 
-*Last updated: September 14, 2026*
-*Analysis based on 50 games stored in `data/games.db` across Chess.com rapid/blitz play.*
+*Last updated: September 15, 2026*
+*Analysis based on 52 games stored in `data/games.db` across Chess.com rapid/blitz/bullet play (19 fully analyzed).*
 
 ---
 
 ## 1. Executive Summary
 
-Matthew is an active chess improver with a strong intuitive grasp of active piece play and aggressive tactical ideas. When playing classical opening structures like the **Four Knights Game** (87.5% win rate) and the **Reti Opening** (75% win rate), he demonstrates confident middlegame planning and converts advantages effectively.
+Matthew is an active chess improver with a strong intuitive grasp of active piece play and aggressive tactical ideas. When playing classical opening structures like the **Four Knights Game** (70.0% win rate) and the **Reti Opening** (75% win rate), he demonstrates confident middlegame planning and converts advantages effectively.
 
 His primary bottlenecks to reaching 800–1000+ rating are:
-1. **One-Move Hanging Blunders:** Leaving minor pieces (knights and bishops) unprotected on active squares when focusing on his own attacking ideas.
+1. **One-Move Hanging Blunders:** Leaving minor pieces (knights and bishops) or heavy pieces unprotected on active squares when focusing on his own attacking ideas (e.g., hanging his queen to a defended pawn on move 19 in `chesscom:174492728252`).
 2. **Missing Quiet Positional Moves:** Looking primarily for checks, captures, or forward pawn pushes rather than quiet prophylaxis, piece consolidation, or king safety.
-3. **The Pirc / Scandinavian Opening Trap:** Over-reliance on the Pirc Defense as Black (19 games, 42% score) where White attacks aggressively early, and struggling against the Scandinavian Defense as White (25% score).
+3. **Opening Specifics:** Over-reliance on the Pirc Defense as Black (19 games, 42% score). *Update:* Matthew demonstrated major progress against the Scandinavian Defense in game `chesscom:174492810340`, playing a clinical 98.3% accuracy win as White with zero errors.
 
 ---
 
@@ -20,11 +20,11 @@ His primary bottlenecks to reaching 800–1000+ rating are:
 
 | Opening Family | Games | Score | Assessment |
 |---|---|---|---|
-| **Four Knights Game** | 4 | **87.5%** | Excellent. Natural piece development suits Matthew's style. |
+| **Four Knights Game** | 5 | **70.0%** | Very Strong. Natural development; watch out for single-move tactical blunders. |
 | **Reti Opening** | 4 | **75.0%** | Very Strong. Fianchetto and slow buildup play allows him to control the center. |
 | **Ruy Lopez** | 2 | **100%** | Clean conversions with standard Spanish structures. |
 | **Pirc Defense** | 19 | **42.1%** | Core Repertoire. High volume, but frequently suffers from early central pawn concessions or missed e4 tactics. |
-| **Scandinavian Defense** | 6 | **25.0%** | Weakness as White. Often gets dragged into uncomfortable sharp lines against early queen outings. |
+| **Scandinavian Defense** | 7 | **28.6%** | Improving. Scored a 98.3% masterclass win (40 best moves) in latest outing. |
 | **Three Knights Opening** | 5 | **20.0%** | Vulnerable to early Black counter-attacks on c5. |
 | **Caro-Kann Defense** | 4 | **25.0%** | Tends to over-extend pawns or allow Black easy pawn breaks. |
 
